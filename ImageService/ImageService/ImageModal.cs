@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.IO;
 namespace ImageService
 {
-    class ImageModal : IImageModel
+    class ImageModal : IImageServiceModal
     {
         public void CreateFolder(string path)
         {

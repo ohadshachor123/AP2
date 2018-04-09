@@ -4,11 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ImageService
+namespace ImageService.Logging.Modal
 {
-    interface IImageModel
+    public enum MessageTypeEnum : int
     {
-        void CreateFolder(string path);
-        void MoveFile(string from, string to);
+        INFO,
+        WARNING,
+        FAIL
     }
 }

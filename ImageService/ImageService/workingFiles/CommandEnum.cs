@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ImageService
+namespace ImageService.Infrastructure.Enums
 {
-    interface Ihandler
+    public enum CommandEnum : int
     {
-        void Close();
-        void PerformCommand(Command);
+        NewFileCommand,
+        CloseCommand
     }
 }

@@ -9,7 +9,7 @@ namespace ImageService
     class DirectoryHandler : Ihandler
 
     {
-        private Ilogging logger;
+        private ILoggingService logger;
         private string path;
         public DirectoryHandler(string path)
         {
@@ -21,7 +21,7 @@ namespace ImageService
 
         }
 
-        public void PerformCommand(Command command)
+        public void PerformCommand(CommandData command)
         {
 
         }

@@ -4,10 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ImageService
+namespace ImageService.Logging.Modal
 {
-    interface Ilogging
+    public enum MessageTypeEnum : int
     {
-        void Log(string text);
+        INFO,
+        WARNING,
+        FAIL
     }
 }

@@ -45,12 +45,34 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Command.cs" />
+    <Compile Include="CommandData.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="DirectoryHandler.cs" />
+    <Compile Include="examples\CommandEnum.cs" />
+    <Compile Include="examples\CommandRecievedEventArgs.cs" />
+    <Compile Include="examples\DirectoryCloseEventArgs.cs" />
+    <Compile Include="examples\DirectoyHandler.cs" />
+    <Compile Include="examples\ICommand.cs" />
+    <Compile Include="examples\IDirectoryHandler.cs" />
+    <Compile Include="examples\IImageController.cs" />
+    <Compile Include="examples\IImageServiceModal.cs" />
+    <Compile Include="examples\ILoggingService.cs" />
+    <Compile Include="examples\ImageController.cs" />
+    <Compile Include="examples\ImageServer.cs" />
+    <Compile Include="examples\ImageService.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="examples\ImageServiceModal.cs" />
+    <Compile Include="examples\LoggingService.cs" />
+    <Compile Include="examples\MessageRecievedEventArgs.cs" />
+    <Compile Include="examples\MessageTypeEnum.cs" />
+    <Compile Include="examples\NewFileCommand.cs" />
+    <Compile Include="ICommand.cs" />
+    <Compile Include="IController.cs" />
     <Compile Include="Ihandler.cs" />
     <Compile Include="IImageModel.cs" />
     <Compile Include="Ilogging.cs" />
+    <Compile Include="ImageController.cs" />
     <Compile Include="ImageModal.cs" />
     <Compile Include="ImageService.cs">
       <SubType>Component</SubType>
