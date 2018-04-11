@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ImageService.Commands
 {
-    class NewFileCommand : ICommand
+    public class NewFileCommand : ICommand
     {
         private FilesModal.IImageModal modal;
 

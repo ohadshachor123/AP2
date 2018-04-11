@@ -4,15 +4,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ImageService.Commands;
+using ImageService.Handlers;
+using ImageService.Logging;
 namespace ImageService
 {
     public class Server
     {
-        private Logging.IlogService logger;
+        private IlogService logger;
         private IController controller;
 
         public event EventHandler<Commands.CommandReceivedArgs> ReceiveCommand;
-        public Server(Logging.IlogService logger, IController controller)
+        public event EventHandler<EventArgs> CloseAll;
+        public Server(IlogService logger,IController controller)
         {
             this.logger = logger;
             this.controller = controller;
@@ -20,22 +23,27 @@ namespace ImageService
 
         public void AddPath(string path)
         {
-            IDirectoryHandler handler = new DirectoryHandler(logger, controller);
+            logger.Log("Adding path: " + path, MessageType.WARNING);
+            IHandler handler = new DirectoryHandler(logger, controller);
             handler.DirectoryClose += CloseHandler;
             ReceiveCommand += handler.OnCommandRecieved;
+            CloseAll += handler.closeMe;
             handler.StartHandleDirectory(path);
-
         }
 
-        private void CloseHandler(object sender, DirectoryCloseEventArgs args)
+        private void CloseHandler(object sender, DirectoryCloseArgs args)
         {
 
         }
 
+        public void Stop()
+        {
+            CloseAll?.Invoke(this, null);
+        }
         public void PerformCommand(Commands.CommandReceivedArgs args)
         {
             ReceiveCommand?.Invoke(this, args);
         }
     }
 }
-}
+

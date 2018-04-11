@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ImageService.Logging
 {
-    class LoggingService : IlogService
+    public class LoggingService : IlogService
     {
         public event EventHandler<MessageReceivedArgs> MessageRecieved;
         public void Log(string message, MessageType type)

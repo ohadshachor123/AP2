@@ -7,3 +7,4 @@ C:\Users\Ohad\Desktop\Advanced2\ImageService\ImageService\bin\Debug\ImageService
 C:\Users\Ohad\Desktop\Advanced2\ImageService\ImageService\bin\Debug\ImageService.pdb
 C:\Users\Ohad\Desktop\Advanced2\ImageService\ImageService\obj\Debug\ImageService.exe
 C:\Users\Ohad\Desktop\Advanced2\ImageService\ImageService\obj\Debug\ImageService.pdb
+C:\Users\Ohad\Desktop\Advanced2\ImageService\ImageService\obj\Debug\ImageService.csprojResolveAssemblyReference.cache

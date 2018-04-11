@@ -9,6 +9,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.InteropServices;
 
+using ImageService.Commands;
+using ImageService.FilesModal;
 namespace ImageService
 {
     public enum ServiceState
@@ -37,21 +39,31 @@ namespace ImageService
     public partial class ImageService : ServiceBase
     {
         private Logging.IlogService logger;
-
+        private Server server;
+        private IController controller;
+        private IImageModal modal;
         public ImageService()
         {
+
+            string output = "C:\\Users\\Ohad\\Desktop\\Advanced2";
+            int size = 5;
             InitializeComponent();
             eventLog1 = new System.Diagnostics.EventLog();
-            if (!System.Diagnostics.EventLog.SourceExists("MySource"))
+            if (!System.Diagnostics.EventLog.SourceExists("ImageServiceSource"))
             {
                 System.Diagnostics.EventLog.CreateEventSource(
-                    "MySource", "MyNewLog");
+                    "ImageServiceSource", "ImageServiceLog");
             }
-            eventLog1.Source = "MySource";
-            eventLog1.Log = "MyNewLog";
+            eventLog1.Source = "ImageServiceSource";
+            eventLog1.Log = "ImageServiceLog";
 
             logger = new Logging.LoggingService();
             logger.MessageRecieved += NewEventLogEntry;
+
+            modal = new ImageModal(output, size);
+            controller = new Controller(modal);
+            server = new Server(logger, controller);
+            server.AddPath("C:\\Users\\Ohad\\Desktop\\Advanced2\\example");
         }
 
         private void NewEventLogEntry(object sender, Logging.MessageReceivedArgs args)
@@ -86,6 +98,7 @@ namespace ImageService
         protected override void OnStop()
         {
             eventLog1.WriteEntry("Finishing....");
+            server.Stop();
         }
 
         [DllImport("advapi32.dll", SetLastError= true)]  
