@@ -39,9 +39,9 @@
             // 
             // ImageService
             // 
-            this.ImageService.Description = "ImageService";
+            this.ImageService.Description = "ImageService installer";
             this.ImageService.DisplayName = "ImageService";
-            this.ImageService.ServiceName = "Service1";
+            this.ImageService.ServiceName = "ImageService";
             this.ImageService.StartType = System.ServiceProcess.ServiceStartMode.Automatic;
             this.ImageService.AfterInstall += new System.Configuration.Install.InstallEventHandler(this.serviceInstaller1_AfterInstall);
             // 

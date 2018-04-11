@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{9A510313-7E26-4EB5-8D25-6A2C6EFD7855}</ProjectGuid>
+    <ProjectGuid>{BE35F0AB-B9ED-4DF9-874E-D83FD1C5DDDB}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>ImageService</RootNamespace>
     <AssemblyName>ImageService</AssemblyName>
@@ -31,6 +31,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>ImageService.Program</StartupObject>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Configuration.Install" />
@@ -45,25 +48,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="workingFiles\CommandEnum.cs" />
-    <Compile Include="workingFiles\CommandRecievedEventArgs.cs" />
-    <Compile Include="workingFiles\DirectoryCloseEventArgs.cs" />
-    <Compile Include="workingFiles\DirectoyHandler.cs" />
-    <Compile Include="workingFiles\ICommand.cs" />
-    <Compile Include="workingFiles\IDirectoryHandler.cs" />
-    <Compile Include="workingFiles\IImageController.cs" />
-    <Compile Include="workingFiles\IImageServiceModal.cs" />
-    <Compile Include="workingFiles\ILoggingService.cs" />
-    <Compile Include="workingFiles\ImageController.cs" />
-    <Compile Include="workingFiles\ImageServer.cs" />
-    <Compile Include="workingFiles\ImageService.cs">
+    <Compile Include="Commands\CommandEnum.cs" />
+    <Compile Include="Commands\CommandReceivedArgs.cs" />
+    <Compile Include="Commands\Controller.cs" />
+    <Compile Include="Commands\ICommand.cs" />
+    <Compile Include="Commands\IController.cs" />
+    <Compile Include="Commands\NewFileCommand.cs" />
+    <Compile Include="FilesModal\ImageModal.cs" />
+    <Compile Include="ImageService.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="workingFiles\ImageServiceModal.cs" />
-    <Compile Include="workingFiles\LoggingService.cs" />
-    <Compile Include="workingFiles\MessageRecievedEventArgs.cs" />
-    <Compile Include="workingFiles\MessageTypeEnum.cs" />
-    <Compile Include="workingFiles\NewFileCommand.cs" />
+    <Compile Include="ImageService.Designer.cs">
+      <DependentUpon>ImageService.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FilesModal\IImageModal.cs" />
+    <Compile Include="Logging\LoggingService.cs" />
+    <Compile Include="Logging\MessageType.cs" />
+    <Compile Include="Logging\IlogService.cs" />
+    <Compile Include="Logging\MessageReceivedArgs.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="ProjectInstaller.cs">
       <SubType>Component</SubType>
@@ -72,11 +74,15 @@
       <DependentUpon>ProjectInstaller.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Server.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="ImageService.resx">
+      <DependentUpon>ImageService.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ProjectInstaller.resx">
       <DependentUpon>ProjectInstaller.cs</DependentUpon>
     </EmbeddedResource>

@@ -28,10 +28,11 @@ namespace ImageService.Controller
             ICommand command;
             if (commands.TryGetValue(commandID, out command))
             {
-                command.Execute(args, out resultSuccesful);
+                return command.Execute(args, out resultSuccesful);
             } else
             {
-                //TODO command does not exist
+                resultSuccesful = false;
+                return null;
             }
         }
     }

@@ -19,7 +19,14 @@ namespace ImageService.Commands
 
         public string Execute(string[] args, out bool result)
         {
-			// The String Will Return the New Path if result = true, and will return the error message o.w
+            string path = args[0];
+            string year = args[1];
+            string month = args[2];
+            m_modal.OutputSubfolder(year);
+            m_modal.OutputSubfolder(year + "\\" + month);
+            m_modal.ThumbnailSubfolder(year);
+            m_modal.ThumbnailSubfolder(year + "\\" + month);
+            return m_modal.MoveFile(path, year + "\\" + month, out result);
         }
     }
 }

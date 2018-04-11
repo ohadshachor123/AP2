@@ -16,9 +16,10 @@ namespace ImageService.Server
         private ILoggingService logger;
         private IImageController controller;
         public event EventHandler<CommandRecievedEventArgs> CommandRecieved;
-        public ImageServer(ILoggingService logger)
+        public ImageServer(ILoggingService logger, IImageController controller)
         {
             this.logger = logger;
+            this.controller = controller;
         }
 
         public void AddPath(string path)

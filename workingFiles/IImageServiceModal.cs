@@ -13,6 +13,9 @@ namespace ImageService.Modal
         /// </summary>
         /// <param name="path">The Path of the Image from the file</param>
         /// <returns>Indication if the Addition Was Successful</returns>
-        string AddFile(string path, out bool result);
+        string MoveFile(string path, string subPath, out bool result);
+        void OutputSubfolder(string name);
+        void ThumbnailSubfolder(string name);
+
     }
 }
