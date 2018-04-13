@@ -10,7 +10,7 @@ namespace ImageService.Logging
     public interface IlogService
     {
         event EventHandler<MessageReceivedArgs> MessageRecieved;
-        void Log(string message, MessageType type);           // Logging the Message
+        void Log(string message, MessageType type = MessageType.INFO);           // Logging the Message
     }
 }
 

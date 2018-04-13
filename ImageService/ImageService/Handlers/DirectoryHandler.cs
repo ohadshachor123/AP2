@@ -11,7 +11,6 @@ namespace ImageService.Handlers
     {
         public static string[] filters = { ".png", ".jpg", ".bmp", ".gif" };
 
-        public event EventHandler<DirectoryCloseArgs> DirectoryClose;
         private Commands.IController controller;       
         private Logging.IlogService logging;
         private FileSystemWatcher dirWatcher;
@@ -22,9 +21,9 @@ namespace ImageService.Handlers
             this.logging = logging;
             this.controller = controller;
         }
+
         public void StartHandleDirectory(string path)
         {
-            logging.Log("Starting the watcher " + path, Logging.MessageType.FAIL);
             this.path = path;
             dirWatcher = new FileSystemWatcher(path);
             dirWatcher.EnableRaisingEvents = true;
@@ -32,44 +31,44 @@ namespace ImageService.Handlers
         }
         
         /** The function to call whenever a file is create in the server **/
-        public void FileCreated(object sender, FileSystemEventArgs args)
+        private void FileCreated(object sender, FileSystemEventArgs args)
         {
-            logging.Log("NEW FILE    " + args.FullPath, Logging.MessageType.INFO);
-
-            string path = args.FullPath;
-            string extention = Path.GetExtension(path);
+            string sourcePath = args.FullPath;
+            string extention = Path.GetExtension(sourcePath);
             if(filters.Contains(extention))
             {
-                logging.Log("THE FILE MATCHES.....", Logging.MessageType.INFO);
-                DateTime date = Tools.GetDateTakenFromImage(path);
-                logging.Log("THE DATE IS GIVEN", Logging.MessageType.INFO);
+                logging.Log("New file identified: " + sourcePath);
+                DateTime date = Tools.GetDateTakenFromImage(sourcePath);
                 int year = date.Year;
                 int month = date.Month;
-                string[] commandArgs = { path, year.ToString(), month.ToString() };
-                logging.Log("Executing the new file command", Logging.MessageType.FAIL);
-                controller.ExecuteCommand((int)CommandEnum.NewFileCommand, commandArgs, out bool result);
+                string[] commandArgs = { sourcePath, year.ToString(), month.ToString() };
+                string newPath = controller.ExecuteCommand((int)CommandEnum.NewFileCommand, commandArgs, out bool result);
                 if (result)
                 {
-                    logging.Log("SUCCES!", Logging.MessageType.INFO);
+                    logging.Log("Successfully moved the file to: " + newPath);
                 } else
                 {
-                    logging.Log("Fail!", Logging.MessageType.FAIL);
+                    logging.Log("Failed moving " + Path.GetFileName(sourcePath) + " to the new path", Logging.MessageType.FAIL);
+                    logging.Log("Error : " + newPath, Logging.MessageType.FAIL);
                 }
             }
-
         }
 
         /** Perform a command which the server has sent **/
         public void OnCommandRecieved(object sender, CommandReceivedArgs args)
         {
-            logging.Log("Received a command from the server", Logging.MessageType.INFO);
+            logging.Log("The handler received a new command, ID: " + args.CommandID.ToString());
             controller.ExecuteCommand(args.CommandID, args.Args, out bool result);
+            if (result)
+                logging.Log("Successfully performed the command");
+            else
+                logging.Log("Fail to perform the command");
         }
 
         /** The function to call whenever we want to close the FileSystemWatcher **/
-        public void closeMe(object sender, EventArgs args)
+        public void CloseMe(object sender, EventArgs args)
         {
-            logging.Log("Closing the handler right now....", Logging.MessageType.FAIL);
+            logging.Log("Closing the handler: " + this.path, Logging.MessageType.WARNING);
             dirWatcher.EnableRaisingEvents = false;
         }
 

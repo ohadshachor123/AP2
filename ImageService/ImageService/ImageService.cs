@@ -8,7 +8,7 @@ using System.ServiceProcess;
 using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.InteropServices;
-
+using System.Configuration;
 using ImageService.Commands;
 using ImageService.FilesModal;
 namespace ImageService
@@ -42,20 +42,24 @@ namespace ImageService
         private Server server;
         private IController controller;
         private IImageModal modal;
+
         public ImageService()
         {
-
-            string output = "C:\\Users\\Ohad\\Desktop\\Advanced2";
-            int size = 5;
+            
+            string output = ConfigurationManager.AppSettings["OutputDir"];
+            int size = int.Parse(ConfigurationManager.AppSettings["ThumbnailSize"]);
+            string[] pathsToListen = ConfigurationManager.AppSettings["Handler"].Split(';');
+            string sourceName = ConfigurationManager.AppSettings["SourceName"];
+            string logName = ConfigurationManager.AppSettings["LogName"];
             InitializeComponent();
             eventLog1 = new System.Diagnostics.EventLog();
-            if (!System.Diagnostics.EventLog.SourceExists("ImageServiceSource"))
+            if (!System.Diagnostics.EventLog.SourceExists(sourceName))
             {
                 System.Diagnostics.EventLog.CreateEventSource(
-                    "ImageServiceSource", "ImageServiceLog");
+                    sourceName, logName);
             }
-            eventLog1.Source = "ImageServiceSource";
-            eventLog1.Log = "ImageServiceLog";
+            eventLog1.Source = sourceName;
+            eventLog1.Log = logName;
 
             logger = new Logging.LoggingService();
             logger.MessageRecieved += NewEventLogEntry;
@@ -63,7 +67,10 @@ namespace ImageService
             modal = new ImageModal(output, size);
             controller = new Controller(modal);
             server = new Server(logger, controller);
-            server.AddPath("C:\\Users\\Ohad\\Desktop\\Advanced2\\example");
+            foreach(string path in pathsToListen)
+            {
+                server.AddPath(path);
+            }
         }
 
         private void NewEventLogEntry(object sender, Logging.MessageReceivedArgs args)
@@ -84,12 +91,12 @@ namespace ImageService
         protected override void OnStart(string[] args)
         {
             // Update the service state to Start Pending.  
-            eventLog1.WriteEntry("Start pending...");
+            logger.Log("Start pending...");
             ServiceStatus serviceStatus = new ServiceStatus();
             serviceStatus.dwCurrentState = ServiceState.SERVICE_START_PENDING;
             serviceStatus.dwWaitHint = 100000;
             SetServiceStatus(this.ServiceHandle, ref serviceStatus);
-            eventLog1.WriteEntry("Starting....");
+            logger.Log("Starting....");
             // Update the service state to Running.  
             serviceStatus.dwCurrentState = ServiceState.SERVICE_RUNNING;
             SetServiceStatus(this.ServiceHandle, ref serviceStatus);
@@ -97,7 +104,7 @@ namespace ImageService
 
         protected override void OnStop()
         {
-            eventLog1.WriteEntry("Finishing....");
+            logger.Log("Finishing....");
             server.Stop();
         }
 

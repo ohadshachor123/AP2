@@ -9,7 +9,5 @@ namespace ImageService.FilesModal
     public interface IImageModal
     {
         string MoveFile(string pathFrom, string year, string month, out bool result);
-        void CreateOutputSubfolder(string name);
-        void CreateThumbnailSubfolder(string name);
     }
 }

@@ -29,21 +29,15 @@ namespace ImageService
             {
                 return File.GetCreationTime(path);
             }
-    
-    /**
-            Image myImage = Image.FromFile(path);
-            PropertyItem propItem = myImage.GetPropertyItem(306);
-            DateTime dtaken;
+        }
 
-            //Convert date taken metadata to a DateTime object
-            string sdate = Encoding.UTF8.GetString(propItem.Value).Trim();
-            string secondhalf = sdate.Substring(sdate.IndexOf(" "), (sdate.Length - sdate.IndexOf(" ")));
-            string firsthalf = sdate.Substring(0, 10);
-            firsthalf = firsthalf.Replace(":", "-");
-            sdate = firsthalf + secondhalf;
-            dtaken = DateTime.Parse(sdate);
-            return dtaken;
-    **/
+        public static Image CreateThumbnailFromPath(string path, int size)
+        {
+            Image image = Image.FromFile(path);
+            Image thumbnail = image.GetThumbnailImage(size, size, () => false, IntPtr.Zero);
+            image.Dispose();
+
+            return thumbnail;
         }
     }
 }

@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using System.IO.MemoryMappedFiles;
+using System.Drawing;
+using System.Threading;
 namespace ImageService.FilesModal
 {
     public class ImageModal:IImageModal
@@ -19,14 +21,14 @@ namespace ImageService.FilesModal
         }
 
 
-        public void CreateOutputSubfolder(string path)
+        private void CreateOutputSubfolder(string path)
         {
             if (!Directory.Exists(outputFolder + "\\" + path)) {
                 Directory.CreateDirectory(outputFolder + "\\" + path);
             }
         }
 
-        public void CreateThumbnailSubfolder(string path)
+        private void CreateThumbnailSubfolder(string path)
         {
             CreateOutputSubfolder("thumbnails");
             CreateOutputSubfolder("thumbnails\\" + path);
@@ -38,15 +40,27 @@ namespace ImageService.FilesModal
                 CreateOutputSubfolder(year);
                 CreateOutputSubfolder(year + "\\" + month);
 
-                string pathTo = outputFolder + "\\" + year + "\\" + month;
+                CreateThumbnailSubfolder(year);
+                CreateThumbnailSubfolder(year + "\\" + month);
+                
+                string name = Path.GetFileNameWithoutExtension(pathFrom);
+                string extension = Path.GetExtension(pathFrom);
+
+                Thread.Sleep(500);
+
+                Image thumbnail = Tools.CreateThumbnailFromPath(pathFrom, thumbnailSize);
+                thumbnail.Save(outputFolder + "\\" + "thumbnails" + "\\" + year + "\\" + month + "\\" + name + ".thumb");
+                thumbnail.Dispose();
+
+                string pathTo = outputFolder + "\\" + year + "\\" + month + "\\" + name + extension;
                 File.Move(pathFrom, pathTo);
                 result = true;
                 return pathTo;
             }
-            catch
+            catch (Exception e)
             {
                 result = false;
-                return null;
+                return e.StackTrace + e.Message;
             }
         }
 
