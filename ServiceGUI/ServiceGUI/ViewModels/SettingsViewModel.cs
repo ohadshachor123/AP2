@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ServiceGUI.Models;
+
 namespace ServiceGUI.ViewModels
 {
     class SettingsViewModel : AbstractViewModel
@@ -39,9 +40,20 @@ namespace ServiceGUI.ViewModels
             set { this.model.ThumbnailSize = value; }
         }
 
+        private string _currentlySelected;
+        public String CurrentlySelected
+        {
+            get { return _currentlySelected; }
+            set
+            {
+                _currentlySelected = value;
+                NotifyPropertyChanged("CurrentlySelected");
+            }
+        }
         public SettingsViewModel(ISettingsModel model) : base(model)
         {
             this.model = model;
+            _currentlySelected = null;
         }
     }
 }

@@ -11,6 +11,7 @@ namespace ServiceGUI.Models
     class SettingsModel : ISettingsModel
     {
         public event PropertyChangedEventHandler PropertyChanged;
+
         private ObservableCollection<String> _handlersList;
         private string _outputDirectory;
         private string _sourceName;
@@ -71,7 +72,6 @@ namespace ServiceGUI.Models
             LogName = "LOG NAME BOUNDED";
             SourceName = "SOURCE NAME BOUNDED";
             OutputDirectory = "Output Dir Binded";
-
             HandlersList = lst;
         }
 

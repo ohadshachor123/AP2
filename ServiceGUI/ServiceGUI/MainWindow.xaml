@@ -6,7 +6,7 @@
         xmlns:Views="clr-namespace:ServiceGUI.Views"
         xmlns:local="clr-namespace:ServiceGUI"
         mc:Ignorable="d"
-        Title="Image Service Graphical Interface" Height="450" Width="800">
+        Title="Image Service Graphical Interface" Height="450" Width="800" Background="LightCyan">
     <Window.Resources>
         <Style x:Key="tabTextStyle" TargetType="{x:Type TextBlock}">
             <Setter Property="TextBlock.HorizontalAlignment" Value="Center"></Setter>
@@ -43,6 +43,9 @@
                         <TextBlock Style="{StaticResource tabTextStyle}">Logs</TextBlock>
                         </StackPanel>
                     </TabItem.Header>
+                <UserControl>
+                    <Views:LogsView></Views:LogsView>
+                </UserControl>
                 </TabItem>
         </TabControl>
     </Grid>
