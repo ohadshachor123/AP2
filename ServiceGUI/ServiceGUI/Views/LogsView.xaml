@@ -6,7 +6,7 @@
              xmlns:log="clr-namespace:ServiceGUI.Logging"
              xmlns:local="clr-namespace:ServiceGUI.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800" Background="LightCyan">
+             d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
         <Style x:Key="topTitleStyle" TargetType="{x:Type TextBlock}">
             <Setter Property="TextBlock.Foreground" Value="BlueViolet"></Setter>
@@ -22,7 +22,7 @@
     </UserControl.Resources>
     <DockPanel Width="800" HorizontalAlignment="Center">
         <TextBlock DockPanel.Dock="Top"  HorizontalAlignment="Center" Style="{StaticResource topTitleStyle}">Logs</TextBlock>
-        <DataGrid CanUserAddRows="False" VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True" ItemsSource="{Binding VM_Logs}">
+        <DataGrid Margin="20" CanUserAddRows="False" VerticalScrollBarVisibility="Auto" AutoGenerateColumns="False" ScrollViewer.CanContentScroll="True" ItemsSource="{Binding VM_Logs}">
             <DataGrid.Columns>
                 <DataGridTextColumn IsReadOnly="True" Header="Type" Width="70" Binding ="{Binding Type}" ElementStyle="{StaticResource logTypeStyle}"></DataGridTextColumn>
                 <DataGridTextColumn IsReadOnly="True" Header="Message" Width="*" Binding="{Binding Message}"></DataGridTextColumn>

@@ -12,7 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-
+using ServiceGUI.ViewModels;
+using ServiceGUI.Models;
 namespace ServiceGUI
 {
     /// <summary>
@@ -23,6 +24,7 @@ namespace ServiceGUI
         public MainWindow()
         {
             InitializeComponent();
+            this.DataContext = new MainWindowViewModel(new MainWindowModel());
         }
     }
 }

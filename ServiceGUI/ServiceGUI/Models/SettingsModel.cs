@@ -8,10 +8,8 @@ using System.Threading.Tasks;
 
 namespace ServiceGUI.Models
 {
-    class SettingsModel : ISettingsModel
+    public class SettingsModel : AbstractModel, ISettingsModel
     {
-        public event PropertyChangedEventHandler PropertyChanged;
-
         private ObservableCollection<String> _handlersList;
         private string _outputDirectory;
         private string _sourceName;
@@ -75,9 +73,5 @@ namespace ServiceGUI.Models
             HandlersList = lst;
         }
 
-        public void NotifyPropertyChanged(string propName)
-        {
-            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName));
-        }
     }
 }
