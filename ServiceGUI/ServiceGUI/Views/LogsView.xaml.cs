@@ -12,7 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-
+using ServiceGUI.ViewModels;
+using ServiceGUI.Models;
 namespace ServiceGUI.Views
 {
     /// <summary>
@@ -23,6 +24,7 @@ namespace ServiceGUI.Views
         public LogsView()
         {
             InitializeComponent();
+            this.DataContext = new LogsViewModel(new LogsModel());
         }
     }
 }

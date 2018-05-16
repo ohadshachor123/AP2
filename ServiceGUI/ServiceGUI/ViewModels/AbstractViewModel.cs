@@ -23,7 +23,6 @@ namespace ServiceGUI.ViewModels
 
         public void NotifyPropertyChanged(string propName)
         {
-            Console.WriteLine("propert Changed " + propName);
             this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("VM_" + propName));
         }
     }

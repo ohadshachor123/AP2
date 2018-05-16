@@ -4,9 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ServiceGUI.Models
+namespace ServiceGUI.Logging
 {
-    class LogItem
+    public enum LogEnum
     {
+        INFO,
+        ERROR,
+        WARNING
     }
 }
