@@ -60,6 +60,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="BooleanToColorConverter.cs" />
+    <Compile Include="Communication\ClientSingelton.cs" />
     <Compile Include="Communication\IClient.cs" />
     <Compile Include="Communication\CommandEnum.cs" />
     <Compile Include="Communication\MyPacket.cs" />

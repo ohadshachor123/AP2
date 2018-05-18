@@ -25,7 +25,9 @@ namespace ServiceGUI.Models
         }
         public LogsModel()
         {
+
             Logs = new ObservableCollection<LogItem>();
+            client = ClientSingelton.GetInstance();
             client.NewPacketReceived += PacketsHandler;
             client.SendPacket(new MyPacket(CommandEnum.AllLogs, null));
         }

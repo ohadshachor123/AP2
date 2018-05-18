@@ -5,7 +5,6 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:Views="clr-namespace:ServiceGUI.Views"
         xmlns:local="clr-namespace:ServiceGUI"
-        xmlns:images="clr-namespace:ServiceGUI.Im"
         mc:Ignorable="d"
         Title="Image Service Graphical Interface" Height="450" Width="800">
     <Window.Resources>
@@ -32,7 +31,7 @@
                 <TabItem>
                     <TabItem.Header>
                         <StackPanel Orientation="Horizontal">
-                        <Image Source="Images/settings.png" Style="{StaticResource tabImageStyle}"></Image>
+                        
                             <TextBlock Style="{StaticResource tabTextStyle}">Settings</TextBlock>
                         </StackPanel>
                     </TabItem.Header>
@@ -44,7 +43,7 @@
                 <TabItem>
                     <TabItem.Header>
                         <StackPanel Orientation="Horizontal">
-                        <Image Source="Images/logs.png" Style="{StaticResource tabImageStyle}"></Image>
+                        
                         <TextBlock Style="{StaticResource tabTextStyle}">Logs</TextBlock>
                         </StackPanel>
                     </TabItem.Header>

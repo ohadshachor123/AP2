@@ -22,6 +22,7 @@ namespace ServiceGUI.Models
 
         public MainWindowModel()
         {
+            client = ClientSingelton.GetInstance();
             if(client.IsRunning())
                 IsConnected = true;
             else

@@ -66,6 +66,7 @@ namespace ServiceGUI.Models
         public SettingsModel()
         {
             HandlersList = new ObservableCollection<String>();
+            client = ClientSingelton.GetInstance();
             client.NewPacketReceived += PacketsHandler;
             client.SendPacket(new MyPacket(CommandEnum.GetConfig, null));
         }
@@ -97,7 +98,7 @@ namespace ServiceGUI.Models
         
         private void AddHandler(String handler)
         {
-            HandlersList.Add(handler);
+            _handlersList.Add(handler);
             NotifyPropertyChanged("HandlersList");
         }
         private void CloseHandler(String handler)
