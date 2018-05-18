@@ -4,11 +4,12 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using ServiceGUI.Communication;
 namespace ServiceGUI.Models
 {
     public class MainWindowModel: AbstractModel, IMainWindowModel
     {
+        private IClient client;
         private bool _isConnected;
         public bool IsConnected
         {
@@ -21,7 +22,11 @@ namespace ServiceGUI.Models
 
         public MainWindowModel()
         {
-            _isConnected = true;
+            if(client.IsRunning())
+                IsConnected = true;
+            else
+                IsConnected = false;
         }
+
     }
 }

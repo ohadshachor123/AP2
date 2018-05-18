@@ -5,11 +5,13 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using ServiceGUI.Communication;
 namespace ServiceGUI.Models
 {
     public class SettingsModel : AbstractModel, ISettingsModel
     {
+
+        private IClient client;
         private ObservableCollection<String> _handlersList;
         private string _outputDirectory;
         private string _sourceName;
@@ -22,7 +24,7 @@ namespace ServiceGUI.Models
             set
             {
                 _handlersList = value;
-                NotifyPropertyChanged("ListHandlers");
+                NotifyPropertyChanged("HandlersList");
             }
         }
 
@@ -63,14 +65,44 @@ namespace ServiceGUI.Models
         }
         public SettingsModel()
         {
-            ObservableCollection<String> lst = new ObservableCollection<String>();
-            lst.Add("AAA");
-            lst.Add("BBB");
-            ThumbnailSize = 5;
-            LogName = "LOG NAME BOUNDED";
-            SourceName = "SOURCE NAME BOUNDED";
-            OutputDirectory = "Output Dir Binded";
-            HandlersList = lst;
+            HandlersList = new ObservableCollection<String>();
+            client.NewPacketReceived += PacketsHandler;
+            client.SendPacket(new MyPacket(CommandEnum.GetConfig, null));
+        }
+
+        public void PacketsHandler(MyPacket packet)
+        {
+            switch(packet.Type)
+            {
+                case CommandEnum.GetConfig:
+                    LoadConfigurations(packet.Args);
+                    break;
+                case CommandEnum.CloseHandler:
+                    CloseHandler(packet.Args[0]);
+                    break;
+            }
+        }
+
+        private void LoadConfigurations(String[] config)
+        {
+            OutputDirectory = config[0];
+            SourceName = config[1];
+            LogName = config[2];
+            ThumbnailSize = int.Parse(config[3]);
+            for (int i = 4; i < config.Length; i++)
+            {
+                AddHandler(config[i]);
+            }
+        }
+        
+        private void AddHandler(String handler)
+        {
+            HandlersList.Add(handler);
+            NotifyPropertyChanged("HandlersList");
+        }
+        private void CloseHandler(String handler)
+        {
+
         }
 
     }

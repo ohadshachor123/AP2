@@ -6,11 +6,12 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using ServiceGUI.Communication;
 namespace ServiceGUI.Models
 {
     public class LogsModel : AbstractModel, ILogsModel
     {
+        private IClient client;
 
         private ObservableCollection<LogItem> _logs;
         public ObservableCollection<LogItem> Logs
@@ -24,12 +25,36 @@ namespace ServiceGUI.Models
         }
         public LogsModel()
         {
-            ObservableCollection<LogItem> lst = new ObservableCollection<LogItem>();
-            lst.Add(new LogItem(LogEnum.ERROR, "Testing error log"));
-            lst.Add(new LogItem(LogEnum.INFO, "Testing Info log"));
-            lst.Add(new LogItem(LogEnum.WARNING, "Testing Warning log"));
-            Logs = lst;
+            Logs = new ObservableCollection<LogItem>();
+            client.NewPacketReceived += PacketsHandler;
+            client.SendPacket(new MyPacket(CommandEnum.AllLogs, null));
+        }
 
+        private void PacketsHandler(MyPacket packet)
+        {
+            switch (packet.Type)
+            {
+                case CommandEnum.AllLogs:
+                    AddListOfLogs(packet.Args);
+                    break;
+                case CommandEnum.ReceiveNewLog:
+                    AddOneLog(packet.Args[0]);
+                    break;
+            }
+        }
+
+        private void AddListOfLogs(String[] logs)
+        {
+            foreach(String log in logs)
+            {
+                AddOneLog(log);
+            }
+        }
+
+        private void AddOneLog(String log)
+        {
+            _logs.Add(LogItem.FromJson(log));
+            NotifyPropertyChanged("Logs");
         }
     }
 }

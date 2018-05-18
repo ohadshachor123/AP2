@@ -16,6 +16,7 @@ namespace ServiceGUI.ViewModels
             get { return this.model.Logs; }
             set { this.model.Logs = value; }
         }
+
         public LogsViewModel(ILogsModel model) : base(model)
         {
             this.model = model;
