@@ -35,6 +35,7 @@ namespace ServiceGUI.Models
             client.SendPacket(new MyPacket(CommandEnum.AllLogs, null));
         }
 
+        // This function will be called whenever a packet is received, and parsed accordingly.
         private void PacketsHandler(MyPacket packet)
         {
             switch (packet.Type)
@@ -48,6 +49,7 @@ namespace ServiceGUI.Models
             }
         }
 
+        // Adding a list of json-ed logs. the list itself is also encoded into a string via json.
         private void AddListOfLogs(String logs)
         {
             try
@@ -65,7 +67,8 @@ namespace ServiceGUI.Models
 
 
         }
-
+        
+        // Adding one log, represented as a log item class.
         private void AddOneLog(LogItem log)
         {
             Application.Current.Dispatcher.Invoke(new Action(() => {
@@ -73,6 +76,8 @@ namespace ServiceGUI.Models
                 NotifyPropertyChanged("Logs");
             }));
         }
+
+        // Adding one log, represented as a json string.
         private void AddOneLog(String log)
         {
             try

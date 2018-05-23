@@ -70,9 +70,11 @@ namespace ServiceGUI.Models
             HandlersList = new ObservableCollection<String>();
             client = ClientSingelton.GetInstance();
             client.NewPacketReceived += PacketsHandler;
+            // requeting configuration from the server.
             client.SendPacket(new MyPacket(CommandEnum.GetConfig, null));
         }
 
+        // Function that will be called whenever a packet is received, and will be parsed here.
         public void PacketsHandler(MyPacket packet)
         {
             switch(packet.Type)
@@ -86,6 +88,7 @@ namespace ServiceGUI.Models
             }
         }
 
+        // Loads the configuration received for the server upon the first connection..
         private void LoadConfigurations(String config)
         {
             Application.Current.Dispatcher.Invoke(new Action(() => {
@@ -111,11 +114,14 @@ namespace ServiceGUI.Models
 
         }
         
+        // Add a handler to the list. Might be useful in the future.
         private void AddHandler(String handler)
         {
             _handlersList.Add(handler);
             NotifyPropertyChanged("HandlersList");
         }
+
+        // This function is called whenever a handler was closed. It removes it from the list.
         private void ClosedHandler(String handler)
         {
             Application.Current.Dispatcher.Invoke(new Action(() =>
@@ -131,6 +137,8 @@ namespace ServiceGUI.Models
                 }
             }));
         }
+        
+        // Accepts a path of a handler and requests the server to close it.
         public void RemoveHandler(String handler)
         {
             string[] args = { handler };

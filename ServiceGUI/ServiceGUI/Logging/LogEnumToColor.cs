@@ -11,6 +11,7 @@ namespace ServiceGUI.Logging
 {
     public class LogEnumToColor : IValueConverter
     {
+        // The converter between the log-status to its background color.
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (targetType != typeof(Brush)) {
@@ -18,12 +19,12 @@ namespace ServiceGUI.Logging
             }
 
             LogEnum type = (LogEnum)value;
-            if (type == LogEnum.ERROR) {
-                return Brushes.Red;
-            } else if (type == LogEnum.WARNING) {
-                return Brushes.Yellow;
-            } else if (type == LogEnum.INFO) {
-                return Brushes.Green;
+            if (type == LogEnum.ERROR) { //RED
+                return new SolidColorBrush(Color.FromRgb(255,92,92));
+            } else if (type == LogEnum.WARNING) { // YELLOW
+                return new SolidColorBrush(Color.FromRgb(255, 251, 117));
+            } else if (type == LogEnum.INFO) { // GREEN
+                return new SolidColorBrush(Color.FromRgb(81, 232, 136));
             }
             throw new InvalidOperationException("The parameter given for the log enum does not exist!");
         }

@@ -14,7 +14,7 @@ namespace ServiceGUI.Communication
         bool IsRunning();
         void SendPacket(MyPacket packet);
         void Close();
-        // I do not want this public so no one by mistake will call it multiple times(creating many threads)
+        // I removed this from the interface so no one by mistake will call it multiple times(creating many threads)
         //void StartListeningToPackets();
 
     }

@@ -10,6 +10,7 @@ namespace ServiceGUI.ViewModels
 {
     class SettingsViewModel : AbstractViewModel
     {
+        // merely dry settings:
         private ISettingsModel model;
         public ObservableCollection<String> VM_HandlersList
         {
@@ -40,15 +41,20 @@ namespace ServiceGUI.ViewModels
             set { this.model.ThumbnailSize = value; }
         }
 
+        // This property determines whether the remove button is enabled
+        // and which function to call when it is clicked.
        public DelegateCommand<Object> RemoveHandler { get; set; }
 
+        // string that hold the selection from the list of handlers.
         private string _currentlySelected;
         public String CurrentlySelected
         {
             get { return _currentlySelected; }
             set
             {
+
                 _currentlySelected = value;
+                // When a selection has been made, we need to change the property(enables the button/disables)
                 var command = this.RemoveHandler as DelegateCommand<object>;
                 command.RaiseCanExecuteChanged();
                 NotifyPropertyChanged("CurrentlySelected");
@@ -69,7 +75,7 @@ namespace ServiceGUI.ViewModels
         }
         private void Remove(object obj)
         {
-            //sent tcp command
+            // sends to the server the removal request.
             this.model.RemoveHandler(this._currentlySelected);
         }
     }

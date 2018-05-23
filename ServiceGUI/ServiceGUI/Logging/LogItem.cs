@@ -19,6 +19,7 @@ namespace ServiceGUI.Logging
             Message = message;
         }
 
+        // Depricated this function.
         public static LogItem FromJson(String serialized)
         {
             LogItem ans = new LogItem();

@@ -13,6 +13,7 @@ namespace ImageService.Commands
         {
             try
             {
+                // Calculating the new string representing the handlers list after the removal.
                 string path = Args[0];
                 string[] allHandlers = (ConfigurationManager.AppSettings.Get("Handler").Split(';'));
                 string ans = "";
@@ -28,11 +29,9 @@ namespace ImageService.Commands
                 config.AppSettings.Settings.Remove("Handler");
                 config.AppSettings.Settings.Add("Handler", ans);
                 config.Save(ConfigurationSaveMode.Minimal);
-                // Force a reload of the changed section. This 
-                // makes the new values available for reading.
                 ConfigurationManager.RefreshSection("appSettings");
-                //  this.imageServer.CloseServer();
                 result = true;
+                // Specifically here the return value does not really matter, so I just return "True"
                 return "True";
             }
             catch (Exception e)

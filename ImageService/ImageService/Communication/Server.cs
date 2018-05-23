@@ -24,15 +24,16 @@ namespace ImageService
 
         private TcpListener clientsListener;
         private List<TcpClient> clients;
-        // ReceiveCommand is the event that is raised whenever the server gets a command from the service.
+        // ReceiveCommand is the event that is raised whenever we want to inform the handlers of a command
         public event EventHandler<Commands.CommandReceivedArgs> ReceiveCommand;
-        // Close all- is the event that is raised whenever the image service stops.
+        // Close all- is the event that is raised whenever we want to close all the handlers..
         public event EventHandler<EventArgs> CloseAll;
         public Server(IlogService logger, IController controller)
         {
             this.logger = logger;
             this.logger.MessageRecieved += SendLogToGUI;
             this.controller = controller;
+
             this.clientsLogic = new ClientLogic();
             this.clientsLogic.ClientExited += this.OnClientExit;
             this.clientsLogic.NewPacketReceived += this.HandlePacket;
@@ -44,6 +45,7 @@ namespace ImageService
             clients = new List<TcpClient>();
             try
             {
+                // Binding the socket
                 IPEndPoint connectionSettings = new IPEndPoint(IPAddress.Parse(IP), PORT);
                 this.clientsListener = new TcpListener(connectionSettings);
                 this.clientsListener.Start();
@@ -52,8 +54,10 @@ namespace ImageService
                     {
                         try
                         {
+                            // Accepting clients
                             TcpClient client = this.clientsListener.AcceptTcpClient();
                             this.clients.Add(client);
+                            // Handle the client on a different thread.
                             this.clientsLogic.HandleClient(client);
                         }
                         catch (Exception e)
@@ -69,6 +73,7 @@ namespace ImageService
             }
         }
 
+        // Add a path to listen to.
         public void AddPath(string path)
         {
             logger.Log("Handling a new path :" + path);
@@ -87,15 +92,19 @@ namespace ImageService
             }
         }
 
+        // This function is depricated.
         public void PerformCommand(Commands.CommandReceivedArgs args)
         {
             ReceiveCommand?.Invoke(this, args);
         }
 
+        // Stop the server- close all the handlers.
         public void Stop()
         {
             CloseAll?.Invoke(this, null);
         }
+
+        // This function will be raised whenever the client sends the exit command.
         private void OnClientExit(object sender, TcpClient client)
         {
             client.Close();
@@ -107,6 +116,8 @@ namespace ImageService
                 logger.Log("Trying to remove a client that is not connected.");
             }
         }
+
+        // This function will be raised whenever a new log is logged. It sends it to all users.
         private void SendLogToGUI(object sender, MessageReceivedArgs args)
         {
             string[] packetArgs = new string[1];
@@ -127,15 +138,18 @@ namespace ImageService
             }
         }
 
+        // This function is raised whenver a new packet is received- 
+        // and it returns the response of the command execution.
         private string HandlePacket(MyPacket packet)
         {
             CommandReceivedArgs args = new CommandReceivedArgs((int)packet.Type, packet.Args, null);
-            if (ReceiveCommand != null)
+            if (ReceiveCommand != null) // Inform the handlers of the commands
                 ReceiveCommand?.Invoke(this, args);
             bool result;
             return this.controller.ExecuteCommand(args.CommandID, args.Args, out result);
         }
 
+        // This function will be raised whenever a handler stops(and it will inform all the clients about it)
         private void HandlerClosedEventListener(object sender, string path)
         {
             string[] args = { path };

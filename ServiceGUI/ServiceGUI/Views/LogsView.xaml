@@ -9,15 +9,19 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
         <Style x:Key="topTitleStyle" TargetType="{x:Type TextBlock}">
-            <Setter Property="TextBlock.Foreground" Value="BlueViolet"></Setter>
-            <Setter Property="TextBlock.FontSize" Value="60"></Setter>
+            <Setter Property="TextBlock.Foreground" Value="DodgerBlue"></Setter>
+            <Setter Property="TextBlock.FontSize" Value="45"></Setter>
             <Setter Property="TextBlock.FontWeight" Value="Bold"></Setter>
-            <Setter Property="TextBlock.FontFamily" Value="Century Gothic"></Setter>
+            <Setter Property="TextBlock.FontFamily" Value="David"></Setter>
+            <Setter Property= "HorizontalAlignment" Value="Center"></Setter>
         </Style>
         <log:LogEnumToColor x:Key="LogEnumColor"></log:LogEnumToColor>
         <Style x:Key="logTypeStyle" TargetType="{x:Type TextBlock}">
             <Setter Property="Background" Value="{Binding Path=Status, Converter={StaticResource LogEnumColor}}">
             </Setter>
+            <Setter Property="FontWeight" Value="ExtraBold"></Setter>
+            <Setter Property="FontFamily" Value="David"></Setter>
+            <Setter Property="VerticalAlignment" Value="Center"></Setter>
         </Style>
     </UserControl.Resources>
     <DockPanel Width="800" HorizontalAlignment="Center">

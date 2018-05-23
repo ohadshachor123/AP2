@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace ServiceGUI.Communication
 {
+    // A singleton the is responsible for the communication with the server.
     public class ClientSingelton : IClient
     {
         private const String IP = "127.0.0.1";
@@ -18,6 +19,9 @@ namespace ServiceGUI.Communication
 
         private bool isConnected;
         private TcpClient socket;
+        
+        // The event that will be raised whenever a packet is received.
+        // All the packet handlers register to this event.
         public event PacketsHandler NewPacketReceived;
 
         // Static get instance method
@@ -32,6 +36,7 @@ namespace ServiceGUI.Communication
         {
             try
             {
+                // Trying to connect to the server.
                 IPEndPoint endPoint = new IPEndPoint(IPAddress.Parse(IP), PORT);
                 socket = new TcpClient();
                 socket.Connect(endPoint);
@@ -41,9 +46,10 @@ namespace ServiceGUI.Communication
             {
                 Console.WriteLine("Could not connect to the server. Error: " + e.Message);
                 isConnected = false;
-            }            if (isConnected)                StartReceivingPackets();
+            }            if (isConnected) // If we succeded connecting, start listening for input packets.                StartReceivingPackets();
         }
 
+        // sort of a getter for the connection boolean in order to match the interface.
         public bool IsRunning() {
             return isConnected;
         }
@@ -55,6 +61,7 @@ namespace ServiceGUI.Communication
             isConnected = false;
         }
 
+        // serialized the packet and sends it.
         public void SendPacket(MyPacket packet)
         {
             try
@@ -63,7 +70,8 @@ namespace ServiceGUI.Communication
                 writer.Write(JsonConvert.SerializeObject(packet));
             } catch (Exception e)
             {
-                // TODO
+                // In case the writing fails, it was unclear what to do from here.
+                isConnected = false;
             }
         }
         private void StartReceivingPackets()
