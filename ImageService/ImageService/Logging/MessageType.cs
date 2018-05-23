@@ -9,7 +9,7 @@ namespace ImageService.Logging
     public enum MessageType : int
     {
         INFO,
+        FAIL,
         WARNING,
-        FAIL
     }
 }

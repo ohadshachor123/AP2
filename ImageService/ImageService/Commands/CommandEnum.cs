@@ -9,6 +9,10 @@ namespace ImageService.Commands
     public enum CommandEnum : int
     {
         NewFileCommand,
+        GetConfig,
+        AllLogs,
+        CloseHandler,
+        ReceiveNewLog,
         CloseCommand
     }
 }

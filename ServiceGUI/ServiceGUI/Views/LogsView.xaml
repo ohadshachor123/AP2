@@ -16,7 +16,7 @@
         </Style>
         <log:LogEnumToColor x:Key="LogEnumColor"></log:LogEnumToColor>
         <Style x:Key="logTypeStyle" TargetType="{x:Type TextBlock}">
-            <Setter Property="Background" Value="{Binding Path=Type, Converter={StaticResource LogEnumColor}}">
+            <Setter Property="Background" Value="{Binding Path=Status, Converter={StaticResource LogEnumColor}}">
             </Setter>
         </Style>
     </UserControl.Resources>
@@ -24,7 +24,7 @@
         <TextBlock DockPanel.Dock="Top"  HorizontalAlignment="Center" Style="{StaticResource topTitleStyle}">Logs</TextBlock>
         <DataGrid Margin="20" CanUserAddRows="False" VerticalScrollBarVisibility="Auto" AutoGenerateColumns="False" ScrollViewer.CanContentScroll="True" ItemsSource="{Binding VM_Logs}">
             <DataGrid.Columns>
-                <DataGridTextColumn IsReadOnly="True" Header="Type" Width="70" Binding ="{Binding Type}" ElementStyle="{StaticResource logTypeStyle}"></DataGridTextColumn>
+                <DataGridTextColumn IsReadOnly="True" Header="Type" Width="70" Binding ="{Binding Status}" ElementStyle="{StaticResource logTypeStyle}"></DataGridTextColumn>
                 <DataGridTextColumn IsReadOnly="True" Header="Message" Width="*" Binding="{Binding Message}"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>

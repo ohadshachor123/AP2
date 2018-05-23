@@ -35,6 +35,9 @@
     <StartupObject>ImageService.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Configuration.Install" />
@@ -50,12 +53,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\AllLogsCommand.cs" />
+    <Compile Include="Commands\CloseHandlerCommand.cs" />
     <Compile Include="Commands\CommandEnum.cs" />
     <Compile Include="Commands\CommandReceivedArgs.cs" />
     <Compile Include="Commands\Controller.cs" />
+    <Compile Include="Commands\GetConfigCommand.cs" />
     <Compile Include="Commands\ICommand.cs" />
     <Compile Include="Commands\IController.cs" />
     <Compile Include="Commands\NewFileCommand.cs" />
+    <Compile Include="Communication\ClientLogic.cs" />
+    <Compile Include="Communication\IClientLogic.cs" />
+    <Compile Include="Communication\MyPacket.cs" />
     <Compile Include="FilesModal\ImageModal.cs" />
     <Compile Include="Handlers\DirectoryCloseArgs.cs" />
     <Compile Include="Handlers\DirectoryHandler.cs" />
@@ -79,11 +88,12 @@
       <DependentUpon>ProjectInstaller.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Server.cs" />
+    <Compile Include="Communication\Server.cs" />
     <Compile Include="Tools.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="ImageService.resx">

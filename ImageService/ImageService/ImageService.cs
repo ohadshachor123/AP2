@@ -65,7 +65,7 @@ namespace ImageService
             logger.MessageRecieved += NewEventLogEntry;
 
             modal = new ImageModal(output, size);
-            controller = new Controller(modal);
+            controller = new Controller(modal, logger);
             server = new Server(logger, controller);
             foreach(string path in pathsToListen)
             {

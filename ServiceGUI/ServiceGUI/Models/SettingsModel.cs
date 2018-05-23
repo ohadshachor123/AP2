@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json.Linq;
 using ServiceGUI.Communication;
 namespace ServiceGUI.Models
 {
@@ -76,7 +77,7 @@ namespace ServiceGUI.Models
             switch(packet.Type)
             {
                 case CommandEnum.GetConfig:
-                    LoadConfigurations(packet.Args);
+                    LoadConfigurations(packet.Args[0]);
                     break;
                 case CommandEnum.CloseHandler:
                     CloseHandler(packet.Args[0]);
@@ -84,15 +85,24 @@ namespace ServiceGUI.Models
             }
         }
 
-        private void LoadConfigurations(String[] config)
+        private void LoadConfigurations(String config)
         {
-            OutputDirectory = config[0];
-            SourceName = config[1];
-            LogName = config[2];
-            ThumbnailSize = int.Parse(config[3]);
-            for (int i = 4; i < config.Length; i++)
+            try
             {
-                AddHandler(config[i]);
+                JObject jsonObject = JObject.Parse(config);
+                OutputDirectory = (string)jsonObject["Output"];
+                SourceName = (string)jsonObject["Source"];
+                LogName = (string)jsonObject["Log"];
+                ThumbnailSize = int.Parse((string)jsonObject["Thumbnail"]);
+                string handlers = (string)jsonObject["Handler"];
+                string[] lst = handlers.Split(';');
+                foreach (string handler in lst)
+                {
+                    AddHandler(handler);
+                }
+            } catch(Exception e)
+            {
+                Console.WriteLine("Could not parse config: " + e.Message);
             }
         }
         
