@@ -11,5 +11,7 @@ namespace ImageService.Handlers
         void StartHandleDirectory(string dirPath);             // The Function Recieves the directory to Handle
         void OnCommandRecieved(object sender, Commands.CommandReceivedArgs args);     // The Event that will be activated upon new Command
         void CloseMe(object sender, EventArgs args);
+        event EventHandler<String> selfCloser;
+
     }
 }

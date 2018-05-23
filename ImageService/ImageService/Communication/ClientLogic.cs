@@ -10,15 +10,11 @@ using ImageService.Commands;
 
 namespace ImageService.Communication
 {
+    public delegate string NotifyPacket(MyPacket packet);
     public class ClientLogic : IClientLogic
     {
-        public event EventHandler<TcpClient> clientExited;
-
-        private IController control;
-        public ClientLogic(IController control)
-        {
-            this.control = control;
-        }
+        public event EventHandler<TcpClient> ClientExited;
+        public event NotifyPacket NewPacketReceived;
         public void HandleClient(TcpClient client)
         {
             new Task(() =>
@@ -34,8 +30,9 @@ namespace ImageService.Communication
                         MyPacket packet = JsonConvert.DeserializeObject<MyPacket>(input);
                         if (packet.Type != CommandEnum.CloseCommand)
                         {
-                            bool success;
-                            string result = this.control.ExecuteCommand((int)packet.Type, packet.Args, out success);
+                            //bool success;
+                            string result = NewPacketReceived?.Invoke(packet);
+                            //string result = this.controlcontrol.ExecuteCommand((int)packet.Type, packet.Args, out success);
                             packet.Args = new string[1];
                             packet.Args[0] = result;
                             writer.Write(JsonConvert.SerializeObject(packet));
@@ -43,12 +40,12 @@ namespace ImageService.Communication
                         else
                         {
                             // if the command is remove client command
-                            clientExited?.Invoke(this, client);
+                            ClientExited?.Invoke(this, client);
                             isConnected = false;
                         }
                     }
                 } catch (Exception){
-                    clientExited?.Invoke(this, client);
+                    ClientExited?.Invoke(this, client);
                 }
             }).Start();
         } 

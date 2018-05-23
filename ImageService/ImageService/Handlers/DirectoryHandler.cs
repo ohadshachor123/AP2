@@ -11,6 +11,7 @@ namespace ImageService.Handlers
     {
         public static string[] filters = { ".png", ".jpg", ".bmp", ".gif" };
 
+        public event EventHandler<String> selfCloser;
         private Commands.IController controller;       
         private Logging.IlogService logging;
         private FileSystemWatcher dirWatcher;
@@ -65,12 +66,23 @@ namespace ImageService.Handlers
         // Perform a command which the server has sent
         public void OnCommandRecieved(object sender, CommandReceivedArgs args)
         {
-            logging.Log("The handler received a new command, ID: " + args.CommandID.ToString());
-            controller.ExecuteCommand(args.CommandID, args.Args, out bool result);
-            if (result)
-                logging.Log("Successfully performed the command");
+            if (args.CommandID == (int)CommandEnum.CloseCommand)
+            {
+                if (this.path == args.Args[0])
+                {
+                    CloseMe(this, null);
+                }
+            }
             else
-                logging.Log("Fail to perform the command");
+            {
+                /**
+                logging.Log("The handler received a new command, ID: " + args.CommandID.ToString());
+                controller.ExecuteCommand(args.CommandID, args.Args, out bool result);
+                if (result)
+                    logging.Log("Successfully performed the command");
+                else
+                    logging.Log("Fail to perform the command"); **/
+            }
         }
 
         //The function we call whenever we want to close the FileSystemWatcher
@@ -79,6 +91,7 @@ namespace ImageService.Handlers
             logging.Log("Closing the handler: " + this.path, Logging.MessageType.WARNING);
             dirWatcher.EnableRaisingEvents = false;
             dirWatcher.Dispose();
+            selfCloser?.Invoke(this, this.path);
         }
 
     }

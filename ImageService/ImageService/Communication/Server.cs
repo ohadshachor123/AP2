@@ -33,8 +33,9 @@ namespace ImageService
             this.logger = logger;
             this.logger.MessageRecieved += SendLogToGUI;
             this.controller = controller;
-            this.clientsLogic = new ClientLogic(this.controller);
-            this.clientsLogic.clientExited += this.OnClientExit;
+            this.clientsLogic = new ClientLogic();
+            this.clientsLogic.ClientExited += this.OnClientExit;
+            this.clientsLogic.NewPacketReceived += this.HandlePacket;
             ListenToClients();
         }
 
@@ -74,6 +75,7 @@ namespace ImageService
             IHandler handler = new DirectoryHandler(logger, controller);
             ReceiveCommand += handler.OnCommandRecieved;
             CloseAll += handler.CloseMe;
+            handler.selfCloser += this.HandlerClosedEventListener;
             // Exception might be thrown if the path is invalid.
             try {  
                 handler.StartHandleDirectory(path);
@@ -119,6 +121,35 @@ namespace ImageService
                     writer.Write(JsonConvert.SerializeObject(packet));
                         // closing the client upon exception.
                 } catch(Exception e)
+                {
+                    OnClientExit(this, client);
+                }
+            }
+        }
+
+        private string HandlePacket(MyPacket packet)
+        {
+            CommandReceivedArgs args = new CommandReceivedArgs((int)packet.Type, packet.Args, null);
+            if (ReceiveCommand != null)
+                ReceiveCommand?.Invoke(this, args);
+            bool result;
+            return this.controller.ExecuteCommand(args.CommandID, args.Args, out result);
+        }
+
+        private void HandlerClosedEventListener(object sender, string path)
+        {
+            string[] args = { path };
+            MyPacket packet = new MyPacket(CommandEnum.CloseHandler, args);
+            foreach(TcpClient client in clients)
+            {
+                try
+                {
+                    NetworkStream stream = client.GetStream();
+                    BinaryWriter writer = new BinaryWriter(stream);
+                    writer.Write(JsonConvert.SerializeObject(packet));
+                    // closing the client upon exception.
+                }
+                catch (Exception e)
                 {
                     OnClientExit(this, client);
                 }

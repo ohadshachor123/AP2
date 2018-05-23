@@ -21,7 +21,8 @@ namespace ImageService.Commands
             {
                 {(int)CommandEnum.NewFileCommand, new NewFileCommand(modal) },
                 {(int)CommandEnum.GetConfig, new GetConfigCommand() },
-                {(int)CommandEnum.AllLogs, new AllLogsCommand(logger) }
+                {(int)CommandEnum.AllLogs, new AllLogsCommand(logger)},
+                {(int)CommandEnum.CloseHandler, new CloseHandlerCommand() }
             };
         }
 

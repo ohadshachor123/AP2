@@ -9,7 +9,8 @@ namespace ImageService.Communication
 {
     public interface IClientLogic
     {
-        event EventHandler<TcpClient> clientExited;
+        event EventHandler<TcpClient> ClientExited;
+        event NotifyPacket NewPacketReceived;
         void HandleClient(TcpClient client);
     }
 }
