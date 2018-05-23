@@ -66,7 +66,7 @@ namespace ImageService.Handlers
         // Perform a command which the server has sent
         public void OnCommandRecieved(object sender, CommandReceivedArgs args)
         {
-            if (args.CommandID == (int)CommandEnum.CloseCommand)
+            if (args.CommandID == (int)CommandEnum.CloseHandler)
             {
                 if (this.path == args.Args[0])
                 {

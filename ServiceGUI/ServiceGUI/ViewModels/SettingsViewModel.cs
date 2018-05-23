@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ServiceGUI.Models;
-
+using Prism.Commands;
 namespace ServiceGUI.ViewModels
 {
     class SettingsViewModel : AbstractViewModel
@@ -40,6 +40,8 @@ namespace ServiceGUI.ViewModels
             set { this.model.ThumbnailSize = value; }
         }
 
+       public DelegateCommand<Object> RemoveHandler { get; set; }
+
         private string _currentlySelected;
         public String CurrentlySelected
         {
@@ -47,6 +49,8 @@ namespace ServiceGUI.ViewModels
             set
             {
                 _currentlySelected = value;
+                var command = this.RemoveHandler as DelegateCommand<object>;
+                command.RaiseCanExecuteChanged();
                 NotifyPropertyChanged("CurrentlySelected");
             }
         }
@@ -54,6 +58,19 @@ namespace ServiceGUI.ViewModels
         {
             this.model = model;
             _currentlySelected = null;
+            this.RemoveHandler = new DelegateCommand<object>(Remove, CanRemove);
+        }
+
+        private bool CanRemove(object obj)
+        {
+            if (this._currentlySelected != null)
+                return true;
+            return false;
+        }
+        private void Remove(object obj)
+        {
+            //sent tcp command
+            this.model.RemoveHandler(this._currentlySelected);
         }
     }
 }

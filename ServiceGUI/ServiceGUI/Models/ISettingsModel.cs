@@ -15,5 +15,7 @@ namespace ServiceGUI.Models
         String SourceName { get; set; }
         String LogName { get; set; }
         int ThumbnailSize { get; set; }
+
+        void RemoveHandler(string handler);
     }
 }

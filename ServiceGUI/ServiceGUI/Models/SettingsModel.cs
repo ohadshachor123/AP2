@@ -81,7 +81,7 @@ namespace ServiceGUI.Models
                     LoadConfigurations(packet.Args[0]);
                     break;
                 case CommandEnum.CloseHandler:
-                    CloseHandler(packet.Args[0]);
+                    ClosedHandler(packet.Args[0]);
                     break;
             }
         }
@@ -116,9 +116,26 @@ namespace ServiceGUI.Models
             _handlersList.Add(handler);
             NotifyPropertyChanged("HandlersList");
         }
-        private void CloseHandler(String handler)
+        private void ClosedHandler(String handler)
         {
-
+            Application.Current.Dispatcher.Invoke(new Action(() =>
+            {
+                try
+                {
+                    _handlersList.Remove(handler);
+                    NotifyPropertyChanged("HandlersList");
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("Failed removing a handler, error: " + e.Message);
+                }
+            }));
+        }
+        public void RemoveHandler(String handler)
+        {
+            string[] args = { handler };
+            client = ClientSingelton.GetInstance();
+            client.SendPacket(new MyPacket(CommandEnum.CloseHandler, args));
         }
 
     }
