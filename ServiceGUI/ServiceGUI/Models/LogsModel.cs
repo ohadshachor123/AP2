@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ServiceGUI.Communication;
 using Newtonsoft.Json;
+using System.Windows;
 
 namespace ServiceGUI.Models
 {
@@ -52,17 +53,37 @@ namespace ServiceGUI.Models
             try
             {
                 ObservableCollection<LogItem> logList = JsonConvert.DeserializeObject<ObservableCollection<LogItem>>(logs);
-                Logs = logList;
-            } catch (Exception e)
+                foreach(LogItem item in logList)
+                {
+                    AddOneLog(item);
+                }
+            }
+            catch (Exception e)
             {
                 Console.WriteLine("Could not parse the log list: " + e.Message);
             }
+
+
         }
 
+        private void AddOneLog(LogItem log)
+        {
+            Application.Current.Dispatcher.Invoke(new Action(() => {
+                _logs.Add(log);
+                NotifyPropertyChanged("Logs");
+            }));
+        }
         private void AddOneLog(String log)
         {
-            _logs.Add(LogItem.FromJson(log));
-            NotifyPropertyChanged("Logs");
+            try
+            {
+                AddOneLog(JsonConvert.DeserializeObject<LogItem>(log));
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Failed adding a new log " + e.Message);
+            }
+
         }
     }
 }

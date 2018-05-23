@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using Newtonsoft.Json.Linq;
 using ServiceGUI.Communication;
 namespace ServiceGUI.Models
@@ -87,23 +88,27 @@ namespace ServiceGUI.Models
 
         private void LoadConfigurations(String config)
         {
-            try
-            {
-                JObject jsonObject = JObject.Parse(config);
-                OutputDirectory = (string)jsonObject["Output"];
-                SourceName = (string)jsonObject["Source"];
-                LogName = (string)jsonObject["Log"];
-                ThumbnailSize = int.Parse((string)jsonObject["Thumbnail"]);
-                string handlers = (string)jsonObject["Handler"];
-                string[] lst = handlers.Split(';');
-                foreach (string handler in lst)
+            Application.Current.Dispatcher.Invoke(new Action(() => {
+                try
                 {
-                    AddHandler(handler);
+                    JObject jsonObject = JObject.Parse(config);
+                    OutputDirectory = (string)jsonObject["Output"];
+                    SourceName = (string)jsonObject["Source"];
+                    LogName = (string)jsonObject["Log"];
+                    ThumbnailSize = int.Parse((string)jsonObject["Thumbnail"]);
+                    string handlers = (string)jsonObject["Handler"];
+                    string[] lst = handlers.Split(';');
+                    foreach (string handler in lst)
+                    {
+                        AddHandler(handler);
+                    }
                 }
-            } catch(Exception e)
-            {
-                Console.WriteLine("Could not parse config: " + e.Message);
-            }
+                catch (Exception e)
+                {
+                    Console.WriteLine("Could not parse config: " + e.Message);
+                }
+            }));
+
         }
         
         private void AddHandler(String handler)
