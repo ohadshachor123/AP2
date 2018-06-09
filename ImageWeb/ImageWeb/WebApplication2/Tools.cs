@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Web;
 using WebApplication2.Models;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace WebApplication2
 {

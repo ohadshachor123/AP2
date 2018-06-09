@@ -15,7 +15,12 @@ namespace WebApplication2.Controllers
         public ActionResult PhotosView()
         {
             while (BackendSettings.GetInstance().OutputDir == null && BackendSettings.GetInstance().IsOnline) { Thread.Sleep(500); }
+            string projectPath = Server.MapPath("~");
             List<Photo> model = Tools.PhotosInDir(BackendSettings.GetInstance().OutputDir);
+            foreach (Photo photo in model)
+            {
+                photo.ThumbnailPath = "~//" + photo.ThumbnailPath.Replace(projectPath, String.Empty);
+            }
             return View(model);
         }
     }
