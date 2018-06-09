@@ -1,0 +1,22 @@
+﻿@model IEnumerable<WebApplication2.Models.Photo>
+
+@{
+    ViewBag.Title = "PhotosView";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Our Photos</h2>
+
+<img src="Output\\2011\\2\\d2.jpg" />
+<br /><br /><br /><br /><br /><br />
+
+<div>
+    <br /><br />
+    @foreach (var item in Model)
+    {
+        <img src="@Url.Content(@item.ThumbnailPath)" class="img-circle" width="242" height="200" />
+        <img src="@Url.Content(@item.Path)" width="242" height="200" />
+        <br /><br />
+
+    }
+</div>

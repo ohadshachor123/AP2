@@ -1,0 +1,53 @@
+﻿@model IEnumerable<String>
+@{
+    ViewBag.Title = "ConfigView";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    <h2>Configuration</h2>
+    <br /><br /><br />
+</div>
+
+<div>
+    <table class="table">
+        <tr>
+            <th>Property</th>
+            <th>Value</th>
+        </tr>
+        <tr>
+            <td>Output Directory: </td>
+            <td>@ViewBag.OutDir</td>
+        </tr>
+        <tr>
+            <td>Source Name: </td>
+            <td>@ViewBag.Source</td>
+        </tr>
+        <tr>
+            <td>Log Name: </td>
+            <td>@ViewBag.Log</td>
+        </tr>
+        <tr>
+            <td>Thumbnail Size:</td>
+            <td>@ViewBag.thumb</td>
+        </tr>
+    </table>
+</div>
+
+<div>
+    <table>
+        <tr>
+            <th>
+                Handlers:
+            </th>
+        </tr>
+        @foreach(var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item)
+                </td>
+            </tr>
+        }
+    </table>
+</div>

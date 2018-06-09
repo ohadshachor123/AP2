@@ -1,0 +1,39 @@
+﻿@model IEnumerable<WebApplication2.Models.Student>
+
+@{
+    ViewBag.Title = "Main";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    <h2 class="text-center">Image Web </h2>
+    <br /><br /><br />
+    <text class="label-info">The service is @ViewBag.Status</text>
+</div>
+<br /><br /><br />
+<div>
+    <text class="text-info">The amount of images stores: @ViewBag.ImageCount</text>
+    <br /><br /><br />
+</div>
+
+<div>
+    <h4>Student Info</h4>
+    <hr />
+    <table>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.FirstName)</th>
+            <th>@Html.DisplayNameFor(model => model.LastName)</th>
+            <th>@Html.DisplayNameFor(model => model.ID)</th>
+        </tr>
+        @foreach(var student in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => student.FirstName)</td>
+                <td>@Html.DisplayFor(modelItem => student.LastName)</td>
+                <td>@Html.DisplayFor(modelItem => student.ID)</td>
+            </tr>
+        }
+    </table>
+</div>
+<p>
+</p>
