@@ -5,23 +5,25 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Our Photos</h2>
-
-<br /><br /><br />
+<br />
+<div class="text-center">
+    <h1 class="text-primary" style="font-family:'Segoe UI'; font-weight:bold;">Photos in the Output</h1>
+</div>
+<br /><br />
 
 
 <div>
     @foreach (var item in Model)
     {
-        <div style="width:250px; border: dashed 1px; float:left">
-            <img src="@Url.Content(@item.ThumbnailPath)" class="img-circle" width="242" height="200" />
+        <div style="border: solid 1px; float:left; margin:6px">
+            <img src="@Url.Content(@item.ThumbnailPath)" class="img-circle"/>
             <br />
             <h3>@item.Name</h3>
             Created on @item.Month/@item.Year
             <br />
-            <button class="btn-info">View</button> <button class="btn-danger">Delete</button>
+            <button class="btn-info" style="font-weight:bold">View</button> <button class="btn-danger" style="font-weight:bold">Delete</button>
         </div>
 
-    } 
+    }
 </div>
 <br /><br />

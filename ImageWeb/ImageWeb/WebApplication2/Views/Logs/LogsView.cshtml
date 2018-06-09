@@ -5,16 +5,22 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Logs</h2>
-<div>
-    <textarea>Enter a filter</textarea><button class="btn-default">Filter</button>
+<div class="text-center">
+    <br />
+    <h1 class="text-primary" style="font-family:'Segoe UI'; font-weight:bold;">Logs</h1>
+    <br />
+    <div style="padding-left:20px">
+        <textarea style="height:28px; width:300px"></textarea><button class="btn-default">Filter</button>
+    </div>
 </div>
+<br />
+
 <table>
     <tr>
         <th>Log Type</th>
         <th>Content</th>
     </tr>
-    @foreach(var item in Model)
+    @foreach (var item in Model)
     {
         <tr>
             <td>@item.Type</td>
@@ -22,4 +28,9 @@
         </tr>
     }
 </table>
+
+<script>
+    $("th").css("padding-left", "25px")
+    $("td").css("padding-left", "25px")
+</script>
 

@@ -4,9 +4,10 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div>
-    <h2>Configuration</h2>
-    <br /><br /><br />
+<div class="text-center">
+    <br />
+    <h1 class="text-primary" style="font-family:'Segoe UI'; font-weight:bold;">Configuration</h1>
+    <br /><br />
 </div>
 
 <div>
@@ -16,19 +17,19 @@
             <th>Value</th>
         </tr>
         <tr>
-            <td>Output Directory: </td>
+            <td>Output Directory </td>
             <td>@ViewBag.OutDir</td>
         </tr>
         <tr>
-            <td>Source Name: </td>
+            <td>Source Name </td>
             <td>@ViewBag.Source</td>
         </tr>
         <tr>
-            <td>Log Name: </td>
+            <td>Log Name </td>
             <td>@ViewBag.Log</td>
         </tr>
         <tr>
-            <td>Thumbnail Size:</td>
+            <td>Thumbnail Size</td>
             <td>@ViewBag.thumb</td>
         </tr>
     </table>

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using WebApplication2.Models;
-
+using WebApplication2.Communication;
 namespace WebApplication2.Controllers
 {
     public class PhotosController : Controller
@@ -12,19 +12,8 @@ namespace WebApplication2.Controllers
         // GET: Photos
         public ActionResult PhotosView()
         {
-            List<Photo> model = new List<Photo>()
-            {
-                new Photo("~/Output/2011/11/d3.jpg", "~/Output/Thumbnail/2011/11/d3.jpg", "d2", "2011", "2"),
-                new Photo("~/Output/2011/11/d3.jpg", "~/Output/Thumbnail/2011/11/d3.jpg", "d2", "2011", "2"),
-                new Photo("~/Output/2011/11/d3.jpg", "~/Output/Thumbnail/2011/11/d3.jpg", "d2", "2011", "2"),
-                new Photo("~/Output/2011/11/d3.jpg", "~/Output/Thumbnail/2011/11/d3.jpg", "d2", "2011", "2"),
-                new Photo("~/Output/2011/11/d3.jpg", "~/Output/Thumbnail/2011/11/d3.jpg", "d2", "2011", "2"),
-                new Photo("~/Output/2011/11/d3.jpg", "~/Output/Thumbnail/2011/11/d3.jpg", "d2", "2011", "2"),
-                new Photo("~/Output/2011/11/d3.jpg", "~/Output/Thumbnail/2011/11/d3.jpg", "d2", "2011", "2"),
-                new Photo("~/Output/2011/11/d3.jpg", "~/Output/Thumbnail/2011/11/d3.jpg", "d2", "2011", "2"),
-                new Photo("~/Output/2011/11/d3.jpg", "~/Output/Thumbnail/2011/11/d3.jpg", "d2", "2011", "2"),
-                new Photo("~/Output/2011/2/d2.jpg", "~/Output/Thumbnail/2011/2/d2.jpg", "d3", "2011", "11")
-        };
+
+            List<Photo> model = Tools.PhotosInDir(BackendSettings.GetInstance().OutputDir)
             return View(model);
         }
     }

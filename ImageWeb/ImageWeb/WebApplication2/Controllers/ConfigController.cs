@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using WebApplication2.Models;
-
+using WebApplication2.Communication;
 namespace WebApplication2.Controllers
 {
     public class ConfigController : Controller
@@ -12,12 +12,13 @@ namespace WebApplication2.Controllers
         // GET: ConfigControl
         public ActionResult ConfigView()
         {
-            List<String> h = new List<String>() { "AAA", "BBB" };
-            ViewBag.OutDir = "O";
-            ViewBag.Source = "S";
-            ViewBag.Log = "L";
-            ViewBag.Thumb = 50;
-            return View(h);
+            ICommunicationAdapter data = BackendSettings.GetInstance();
+            List<String> handlers = data.Handlers;
+            ViewBag.OutDir = data.OutputDir;
+            ViewBag.Source = data.SourceName;
+            ViewBag.Log = data.LogName;
+            ViewBag.Thumb = data.ThumbnailSize;
+            return View(handlers);
         }
     }
 }
