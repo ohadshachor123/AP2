@@ -5,7 +5,6 @@ using System.Linq;
 using System.Reflection;
 using System.Web;
 using WebApplication2.Models;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace WebApplication2
 {
@@ -48,6 +47,25 @@ namespace WebApplication2
                     }
                 }
             }
+            return ans;
+        }
+
+        public static List<Student> StudentsFromFile(string path)
+        {
+            List<Student> ans = new List<Student>();
+            StreamReader file = new StreamReader(path);
+            string line;
+            if (file != null)
+            {
+                while ((line = file.ReadLine()) != null)
+                {
+                    String[] info = line.Split(',');
+                    ans.Add(new Student(Int32.Parse(info[2]), info[0], info[1]));
+                }
+            }
+
+
+            file.Close();
             return ans;
         }
     }

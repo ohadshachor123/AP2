@@ -11,14 +11,14 @@ namespace WebApplication2.Controllers
 {
     public class MainController : Controller
     {
+        private const string filePath = "App_Data\\info.txt";
         // GET: Main
         public ActionResult MainView()
         {
             ICommunicationAdapter data = BackendSettings.GetInstance();
-            var model = new List<Student>()
-            {
-                new Student(322952433, "Ohad", "Shachor")
-            };
+            string projectPath = Server.MapPath("~");
+
+            var model = Tools.StudentsFromFile(projectPath + "\\" + filePath);
             if (data.IsOnline)
                 ViewBag.Status = "Online";
             else
