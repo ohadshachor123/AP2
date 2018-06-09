@@ -9,7 +9,7 @@ namespace WebApplication2.Controllers
     public class LogsController : Controller
     {
         // GET: Logs
-        public ActionResult Index()
+        public ActionResult LogsView()
         {
             return View();
         }
