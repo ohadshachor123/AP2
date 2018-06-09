@@ -150,6 +150,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Communication\ClientSingelton.cs" />
+    <Compile Include="Communication\CommandEnum.cs" />
+    <Compile Include="Communication\IClient.cs" />
+    <Compile Include="Communication\ICommunicationAdapter.cs" />
+    <Compile Include="Communication\MyPacket.cs" />
+    <Compile Include="Communication\BackendSettings.cs" />
+    <Compile Include="Communication\ServerLog.cs" />
     <Compile Include="Controllers\ConfigController.cs" />
     <Compile Include="Controllers\FirstController.cs" />
     <Compile Include="Controllers\LogsController.cs" />
@@ -163,6 +170,7 @@
     <Compile Include="Models\Photo.cs" />
     <Compile Include="Models\Student.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Tools.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />

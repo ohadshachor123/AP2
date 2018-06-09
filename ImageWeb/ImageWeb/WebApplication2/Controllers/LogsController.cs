@@ -12,6 +12,7 @@ namespace WebApplication2.Controllers
         // GET: Logs
         public ActionResult LogsView()
         {
+
             List<Log> logs = BackendSettings.GetInstance().Logs;
             return View(logs);
         }

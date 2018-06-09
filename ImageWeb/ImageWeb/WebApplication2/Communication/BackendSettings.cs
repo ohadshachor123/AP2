@@ -37,8 +37,8 @@ namespace WebApplication2.Communication
             {
                 try
                 {
-                    List<Log> logList = JsonConvert.DeserializeObject<List<Log>>(packet.Args[0]);
-                    foreach (Log item in logList)
+                    List<ServerLog> logList = JsonConvert.DeserializeObject<List<ServerLog>>(packet.Args[0]);
+                    foreach (ServerLog item in logList)
                         AddOneLog(item);
                 }
                 catch (Exception e)
@@ -49,7 +49,7 @@ namespace WebApplication2.Communication
             {
                 try
                 {
-                    AddOneLog(JsonConvert.DeserializeObject<Log>(packet.Args[0]));
+                    AddOneLog(JsonConvert.DeserializeObject<ServerLog>(packet.Args[0]));
                 }
                 catch (Exception e)
                 {
@@ -88,9 +88,30 @@ namespace WebApplication2.Communication
             }
         }
 
-        private void AddOneLog(Log item)
+        private void AddOneLog(ServerLog item)
         {
-            Logs.Add(item);
+            string type = ConvertIntToLogType(item.Status);
+            Log myLog = new Log(type, item.Message);
+            Logs.Add(myLog);
+        }
+        private String ConvertIntToLogType(int status)
+        {
+            if (status == 0)
+            {
+                return "INFO";
+            }
+            else if (status == 1)
+            {
+                return "FAIL";
+            }
+            else if (status == 2)
+            {
+               return "WARNING";
+            }
+            else
+            {
+                return "Unknown";
+            }
         }
         public bool IsOnline { get; set; }
         public string OutputDir { get; set; }

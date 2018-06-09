@@ -30,15 +30,17 @@ namespace WebApplication2
         public static List<Photo> PhotosInDir(string dir)
         {
             List<Photo> ans = new List<Photo>();
-            foreach (string year in Directory.GetDirectories(dir))
+            foreach (string yearPath in Directory.GetDirectories(dir))
             {
-                foreach (string month in Directory.GetDirectories(year))
+                foreach (string monthPath in Directory.GetDirectories(yearPath))
                 {
-                    foreach (string file in Directory.GetFiles(month))
+                    string year = new DirectoryInfo(yearPath).Name;
+                    foreach (string file in Directory.GetFiles(monthPath))
                     {
+                        string month = new DirectoryInfo(monthPath).Name;
                         if (filters.Contains(Path.GetExtension(file)))
                         {
-                            string thumbnail = dir + "\\" + "Thumbnail" + "\\" + year + "\\" + month + "\\" + file;
+                            string thumbnail = dir + "\\Thumbnail\\" + year + "\\" + month + "\\" + Path.GetFileName(file);
                             ans.Add(new Photo(file, thumbnail, Path.GetFileName(file), year, month));
                         }
                     }
