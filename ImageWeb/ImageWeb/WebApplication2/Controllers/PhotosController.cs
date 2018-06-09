@@ -14,8 +14,8 @@ namespace WebApplication2.Controllers
         {
             List<Photo> model = new List<Photo>()
             {
-                new Photo("C:\\Users\\Ohad\\Desktop\\Advanced2\\Output\\2011\\2\\d2.jpg", "C:\\Users\\Ohad\\Desktop\\Advanced2\\Output\\Thumbnail\\2011\\2\\d2.jpg", "d2", "2011", "2"),
-                new Photo("C:\\Users\\Ohad\\Desktop\\Advanced2\\Output\\2011\\11\\d3.jpg", "C:\\Users\\Ohad\\Desktop\\Advanced2\\Output\\Thumbnail\\2011\\11\\d3.jpg", "d3", "2011", "11")
+                new Photo("~/Output/2011/11/d3.jpg", "~/Output/Thumbnail/2011/11/d3.jpg", "d2", "2011", "2"),
+                new Photo("~/Output/2011/2/d2.jpg", "~/Output/Thumbnail/2011/2/d2.jpg", "d3", "2011", "11")
         };
             return View(model);
         }
