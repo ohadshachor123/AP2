@@ -1,0 +1,25 @@
+﻿@model IEnumerable<WebApplication2.Models.Log>
+
+@{
+    ViewBag.Title = "LogsView";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Logs</h2>
+<div>
+    <textarea>Enter a filter</textarea><button class="btn-default">Filter</button>
+</div>
+<table>
+    <tr>
+        <th>Log Type</th>
+        <th>Content</th>
+    </tr>
+    @foreach(var item in Model)
+    {
+        <tr>
+            <td>@item.Type</td>
+            <td>@item.Content</td>
+        </tr>
+    }
+</table>
+
