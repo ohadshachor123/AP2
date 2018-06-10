@@ -23,5 +23,23 @@ namespace WebApplication2.Controllers
             }
             return View(model);
         }
+
+        public ActionResult ViewPhoto(string path, string thumb, string name, string month, string year)
+        {
+            Photo model = new Photo(path, thumb, name, year, month);
+            return View(model);
+        }
+
+        public ActionResult ConfirmDeleteView(string name, string thumb, string path)
+        {
+            Photo model = new Photo(path, thumb, name, null, null);
+            return View(model);
+        }
+
+        public ActionResult DeletePhoto(string path)
+        {
+            Thread.Sleep(200);
+            return RedirectToAction("PhotosView");
+        } 
     }
 }

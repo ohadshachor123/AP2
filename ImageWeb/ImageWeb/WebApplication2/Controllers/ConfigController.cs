@@ -35,12 +35,8 @@ namespace WebApplication2.Controllers
         [HttpPost]
         public ActionResult DeleteHandler(string handler)
         {
-            return RedirectToAction("ConfigView");
-        }
-
-        [HttpPost]
-        public ActionResult RedirectToConfig()
-        {
+            ICommunicationAdapter communication = BackendSettings.GetInstance();
+            communication.DeleteHandler(handler);
             return RedirectToAction("ConfigView");
         }
     }

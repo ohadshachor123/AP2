@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using WebApplication2.Communication;
 
 namespace WebApplication2
 {
@@ -11,6 +12,8 @@ namespace WebApplication2
     {
         protected void Application_Start()
         {
+            //Initializing the settings singleton.
+            BackendSettings.GetInstance();
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
         }

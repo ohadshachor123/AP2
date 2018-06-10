@@ -13,10 +13,13 @@
 <button id="cancel" class="btn-info">Cancel</button>
 
 <script>
-    $("#delete").click(function () {
-        window.location.href = "ConfigView";
-    })
     $("#cancel").click(function () {
         window.location.href = "ConfigView";
+    })
+    $("#delete").click(function () {
+        $("button").prop('disabled', true);
+        $.post("@Url.Action("DeleteHandler", "Config", new { handler = ViewBag.Handler})", function () {
+            window.location.href = "ConfigView";
+        });
     })
 </script>

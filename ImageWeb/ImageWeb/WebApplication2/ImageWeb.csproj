@@ -190,6 +190,8 @@
     <Content Include="Views\Photos\PhotosView.cshtml" />
     <Content Include="Views\Logs\LogsView.cshtml" />
     <Content Include="Views\Config\HandlerPressed.cshtml" />
+    <Content Include="Views\Photos\ViewPhoto.cshtml" />
+    <Content Include="Views\Photos\ConfirmDeleteView.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

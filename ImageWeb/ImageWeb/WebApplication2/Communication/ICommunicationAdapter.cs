@@ -16,5 +16,7 @@ namespace WebApplication2.Communication
         int ThumbnailSize { get; set; }
         List<Log> Logs { get; set; }
         List<String> Handlers { get; set; }
+
+        bool DeleteHandler(string handler);
     }
 }

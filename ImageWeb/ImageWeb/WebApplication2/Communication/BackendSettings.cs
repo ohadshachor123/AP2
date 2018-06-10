@@ -4,6 +4,7 @@ using ServiceGUI.Communication;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Web;
 using WebApplication2.Models;
 
@@ -26,13 +27,13 @@ namespace WebApplication2.Communication
                 IsOnline = true;
                 Logs = new List<Log>();
                 Handlers = new List<String>();
-                client.NewPacketReceived += handlePacket;
+                client.NewPacketReceived += HandlePacket;
                 client.SendPacket(new MyPacket(CommandEnum.GetConfig, null));
                 client.SendPacket(new MyPacket(CommandEnum.AllLogs, null));
             }
         }
 
-        private void handlePacket(MyPacket packet) {
+        private void HandlePacket(MyPacket packet) {
             if (packet.Type == CommandEnum.AllLogs)
             {
                 try
@@ -112,6 +113,15 @@ namespace WebApplication2.Communication
             {
                 return "Unknown";
             }
+        }
+
+        public bool DeleteHandler(string handler)
+        {
+            IClient client = ClientSingelton.GetInstance();
+            String[] args = { handler };
+            client.SendPacket(new MyPacket(CommandEnum.CloseHandler, args));
+            Thread.Sleep(200);
+            return true;
         }
         public bool IsOnline { get; set; }
         public string OutputDir { get; set; }
