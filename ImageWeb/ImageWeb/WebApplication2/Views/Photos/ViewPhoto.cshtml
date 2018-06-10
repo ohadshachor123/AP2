@@ -5,15 +5,16 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>ViewPhoto</h2>
+<div class="text-center">
+    <h1 class="text-primary" style="font-family:'Segoe UI'; font-weight:bold;">@Model.Name</h1>
+    <br />
+    @Model.Month/@Model.Year
+    <br /><br />
+    <img src="@Url.Content(@Model.Path)" />
+    <br /><br />
+    <input type="button" class="btn-success" value="Return" onclick="window.location.href='@Url.Action("PhotosView")'" />
+    <input type="button" class="btn-danger" value="Delete" onclick="window.location.href='@Url.Action("ConfirmDeleteView", new { name = Model.Name, thumb = Model.ThumbnailPath, path = Model.Path })'" />
+</div>
 
-@Model.Month
-<br />
-@Model.Year
-<br />
-@Model.Path
-<br />
-@Model.Name
-<br />
 
 

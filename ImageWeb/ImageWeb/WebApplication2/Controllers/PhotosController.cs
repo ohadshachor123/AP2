@@ -20,6 +20,7 @@ namespace WebApplication2.Controllers
             foreach (Photo photo in model)
             {
                 photo.ThumbnailPath = "~//" + photo.ThumbnailPath.Replace(projectPath, String.Empty);
+                photo.Path = "~//" + photo.Path.Replace(projectPath, String.Empty);
             }
             return View(model);
         }
@@ -27,7 +28,10 @@ namespace WebApplication2.Controllers
         public ActionResult ViewPhoto(string path, string thumb, string name, string month, string year)
         {
             Photo model = new Photo(path, thumb, name, year, month);
-            return View(model);
+            if (path != null) {
+                return View(model);
+            }
+            return RedirectToAction("PhotosView");
         }
 
         public ActionResult ConfirmDeleteView(string name, string thumb, string path)
