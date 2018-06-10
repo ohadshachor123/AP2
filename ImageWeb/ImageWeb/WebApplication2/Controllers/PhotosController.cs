@@ -11,11 +11,12 @@ namespace WebApplication2.Controllers
 {
     public class PhotosController : Controller
     {
+        private static string projectPath;
         // GET: Photos
         public ActionResult PhotosView()
         {
             while (BackendSettings.GetInstance().OutputDir == null && BackendSettings.GetInstance().IsOnline) { Thread.Sleep(500); }
-            string projectPath = Server.MapPath("~");
+            projectPath = Server.MapPath("~");
             List<Photo> model = Tools.PhotosInDir(BackendSettings.GetInstance().OutputDir);
             foreach (Photo photo in model)
             {
@@ -44,8 +45,10 @@ namespace WebApplication2.Controllers
             return RedirectToAction("PhotosView");
         }
 
-        public ActionResult DeletePhoto(string path, string thumb)
+        public ActionResult DeletePhoto(string path)
         {
+            string thumbPath = path.Insert(path.IndexOf("\\",2)+1, "Thumbnail\\");
+            Tools.RemoveImage(path.Replace("~//",projectPath), thumbPath.Replace("~//", projectPath));
             Thread.Sleep(200);
             return RedirectToAction("PhotosView");
         } 

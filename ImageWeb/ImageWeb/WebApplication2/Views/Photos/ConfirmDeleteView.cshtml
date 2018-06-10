@@ -13,10 +13,12 @@
     <input type="button" class="btn-success" value="Cancel" onclick="window.location.href='@Url.Action("PhotosView")'" />
     <button class="btn-danger" id="deleteConfirm">Delete</button>
 </div>
-
+@Model.ThumbnailPath
+<h1>@Model.ThumbnailPath</h1>
 <script>
     $("#deleteConfirm").click(function () {
-        $.post("@Url.Action("DeletePhoto", new { path = Model.Path, thumb = Model.ThumbnailPath })")
+        $.post("@Url.Action("DeletePhoto", new { path = Model.Path})")
+        window.location.href = '@Url.Action("PhotosView")';
     });
 </script>
 

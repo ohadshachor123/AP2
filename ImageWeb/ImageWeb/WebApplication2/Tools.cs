@@ -68,5 +68,17 @@ namespace WebApplication2
             file.Close();
             return ans;
         }
+
+        public static void RemoveImage(string path, string thumbnailPath)
+        {
+            try
+            {
+                File.Delete(path);
+                File.Delete(thumbnailPath);
+            } catch(Exception)
+            {
+
+            }
+        }
     }
 }
