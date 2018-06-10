@@ -49,7 +49,6 @@ namespace WebApplication2.Controllers
         {
             string thumbPath = path.Insert(path.IndexOf("\\",2)+1, "Thumbnail\\");
             Tools.RemoveImage(path.Replace("~//",projectPath), thumbPath.Replace("~//", projectPath));
-            Thread.Sleep(200);
             return RedirectToAction("PhotosView");
         } 
     }

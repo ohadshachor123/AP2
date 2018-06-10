@@ -17,8 +17,9 @@
 <h1>@Model.ThumbnailPath</h1>
 <script>
     $("#deleteConfirm").click(function () {
-        $.post("@Url.Action("DeletePhoto", new { path = Model.Path})")
-        window.location.href = '@Url.Action("PhotosView")';
+        $.post("@Url.Action("DeletePhoto", new { path = Model.Path})", function () {
+            window.location.href = '@Url.Action("PhotosView")';
+        })
     });
 </script>
 
