@@ -5,9 +5,18 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>ConfirmDeleteView</h2>
-<br />
-@Model.Name
-<br />
-@Model.ThumbnailPath
+<div class="text-center">
+    <h1 class="text-primary" style="font-family:'Segoe UI'; font-weight:bold;">@Model.Name</h1>
+    <br /><br />
+    <img src="@Url.Content(@Model.ThumbnailPath)" class="img-circle" />
+    <br /><br />
+    <input type="button" class="btn-success" value="Cancel" onclick="window.location.href='@Url.Action("PhotosView")'" />
+    <button class="btn-danger" id="deleteConfirm">Delete</button>
+</div>
+
+<script>
+    $("#deleteConfirm").click(function () {
+        $.post("@Url.Action("DeletePhoto", new { path = Model.Path, thumb = Model.ThumbnailPath })")
+    });
+</script>
 

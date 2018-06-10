@@ -37,10 +37,14 @@ namespace WebApplication2.Controllers
         public ActionResult ConfirmDeleteView(string name, string thumb, string path)
         {
             Photo model = new Photo(path, thumb, name, null, null);
-            return View(model);
+            if (name != null)
+            {
+                return View(model);
+            }
+            return RedirectToAction("PhotosView");
         }
 
-        public ActionResult DeletePhoto(string path)
+        public ActionResult DeletePhoto(string path, string thumb)
         {
             Thread.Sleep(200);
             return RedirectToAction("PhotosView");
