@@ -158,7 +158,6 @@
     <Compile Include="Communication\BackendSettings.cs" />
     <Compile Include="Communication\ServerLog.cs" />
     <Compile Include="Controllers\ConfigController.cs" />
-    <Compile Include="Controllers\FirstController.cs" />
     <Compile Include="Controllers\LogsController.cs" />
     <Compile Include="Controllers\MainController.cs" />
     <Compile Include="Controllers\PhotosController.cs" />
@@ -185,13 +184,12 @@
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="scripts\jquery-1.10.2.min.map" />
-    <Content Include="Views\Logs\Index.cshtml" />
-    <Content Include="Views\First\AjaxView.cshtml" />
     <Content Include="scripts\jquery-3.0.0.min.map" />
     <Content Include="scripts\jquery-3.0.0.slim.min.map" />
     <Content Include="Views\Config\ConfigView.cshtml" />
     <Content Include="Views\Photos\PhotosView.cshtml" />
     <Content Include="Views\Logs\LogsView.cshtml" />
+    <Content Include="Views\Config\HandlerPressed.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -23,5 +23,25 @@ namespace WebApplication2.Controllers
             ViewBag.Thumb = data.ThumbnailSize;
             return View(handlers);
         }
+
+        // Post- I want to delete a handler.
+        public ActionResult HandlerPressed(string handler)
+        {
+            ViewBag.Handler = handler;
+            //Returns the confirmation view, which asks if you want to delete the handler.
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult DeleteHandler(string handler)
+        {
+            return RedirectToAction("ConfigView");
+        }
+
+        [HttpPost]
+        public ActionResult RedirectToConfig()
+        {
+            return RedirectToAction("ConfigView");
+        }
     }
 }

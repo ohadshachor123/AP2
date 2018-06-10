@@ -10,10 +10,17 @@
     <h1 class="text-primary" style="font-family:'Segoe UI'; font-weight:bold;">Image Web</h1>
     <br />
     <text class="text-info">The service is </text>
-    <text style="font-weight:bold">@ViewBag.Status</text>
+    @{ 
+        var color = "red";
+        if (ViewBag.Status == "Online")
+        {
+            color = "green";
+        }
+    }
+    <text style="font-weight:bold; color:@color">@ViewBag.Status</text>
     <br />
     <text class="text-info">The amount of images stored: </text>
-    <text id="Status" style="font-weight:bold">@ViewBag.ImageCount</text>
+    <text style="font-weight:bold">@ViewBag.ImageCount</text>
     <br /><br />
 </div>
 

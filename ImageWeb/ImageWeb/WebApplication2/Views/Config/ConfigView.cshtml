@@ -46,7 +46,7 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item)
+                    @Html.ActionLink(@item, "HandlerPressed", new { handler = @item })
                 </td>
             </tr>
         }
