@@ -31,6 +31,8 @@ namespace WebApplication2
         public static List<Photo> PhotosInDir(string dir)
         {
             List<Photo> ans = new List<Photo>();
+            if (dir == null)
+                return ans;
             foreach (string yearPath in Directory.GetDirectories(dir))
             {
                 foreach (string monthPath in Directory.GetDirectories(yearPath))

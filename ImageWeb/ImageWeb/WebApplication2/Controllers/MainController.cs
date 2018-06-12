@@ -19,15 +19,25 @@ namespace WebApplication2.Controllers
             string projectPath = Server.MapPath("~");
 
             var model = Tools.StudentsFromFile(projectPath + "\\" + filePath);
+
             if (data.IsOnline)
                 ViewBag.Status = "Online";
-            else
+            else // The service is offline
                 ViewBag.Status = "Offline";
+            // Waiting for the output dir if the service is running.
             while (data.OutputDir == null && data.IsOnline) { Thread.Sleep(200); }
-            ViewBag.ImageCount = Tools.CountImagesInDir(data.OutputDir);
+            if (data.OutputDir != null)
+            {
+                ViewBag.ImageCount = Tools.CountImagesInDir(data.OutputDir);
+            } else // No image count available.
+            {
+                ViewBag.ImageCount = "Unavailable";
+            }
+
             return View(model);
         }
 
+        // TODO: Erase this useless function.
         public ActionResult Index()
         {
             return MainView();

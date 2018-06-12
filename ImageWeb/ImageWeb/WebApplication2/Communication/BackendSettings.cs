@@ -10,6 +10,7 @@ using WebApplication2.Models;
 
 namespace WebApplication2.Communication
 {
+    // This is the singleton which holds all the settings we received from the service.
     public class BackendSettings : ICommunicationAdapter
     {
         private static BackendSettings instance = null;
@@ -28,11 +29,13 @@ namespace WebApplication2.Communication
                 Logs = new List<Log>();
                 Handlers = new List<String>();
                 client.NewPacketReceived += HandlePacket;
+                // Request the config and handlers.
                 client.SendPacket(new MyPacket(CommandEnum.GetConfig, null));
                 client.SendPacket(new MyPacket(CommandEnum.AllLogs, null));
             }
         }
 
+        // Handle the packets received from the service.
         private void HandlePacket(MyPacket packet) {
             if (packet.Type == CommandEnum.AllLogs)
             {
@@ -95,6 +98,8 @@ namespace WebApplication2.Communication
             Log myLog = new Log(type, item.Message);
             Logs.Add(myLog);
         }
+
+        // Converting the log enum to its proper name.
         private String ConvertIntToLogType(int status)
         {
             if (status == 0)
@@ -115,6 +120,7 @@ namespace WebApplication2.Communication
             }
         }
 
+        // This function sends a request to delete the handler to the service.
         public bool DeleteHandler(string handler)
         {
             IClient client = ClientSingelton.GetInstance();

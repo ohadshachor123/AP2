@@ -16,15 +16,21 @@ namespace WebApplication2.Controllers
         {
             ICommunicationAdapter data = BackendSettings.GetInstance();
             List<String> handlers = data.Handlers;
+            // making sure the data is not null, no busy waiting because of the sleep.
             while (data.OutputDir == null && data.IsOnline) { Thread.Sleep(500); }
             ViewBag.OutDir = data.OutputDir;
             ViewBag.Source = data.SourceName;
             ViewBag.Log = data.LogName;
             ViewBag.Thumb = data.ThumbnailSize;
-            return View(handlers);
+            if (handlers != null)
+            {
+                return View(handlers);
+            }
+            // No handlers view.
+            return View(new List<String>() { "No handlers available." });
         }
 
-        // Post- I want to delete a handler.
+        // Get- I want to delete a handler.
         public ActionResult HandlerPressed(string handler)
         {
             ViewBag.Handler = handler;
@@ -32,6 +38,8 @@ namespace WebApplication2.Controllers
             return View();
         }
 
+
+        // Post- I'm sure I want to delete the handler, so do it.
         [HttpPost]
         public ActionResult DeleteHandler(string handler)
         {

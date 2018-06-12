@@ -14,6 +14,8 @@ namespace WebApplication2.Controllers
         {
 
             List<Log> logs = BackendSettings.GetInstance().Logs;
+            if (logs == null)
+                return View(new List<Log>());
             return View(logs);
         }
     }
