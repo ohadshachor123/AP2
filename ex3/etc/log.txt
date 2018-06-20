@@ -1,0 +1,197 @@
+commit 258542347f4e3ed3751d368ec8e2a16f4411d4e5
+Author: ohadshachor123 <ohadshachor123@gmail.com>
+Date:   Tue Jun 12 17:35:20 2018 +0300
+
+    Ready for submission
+
+commit 497f996e5434f4a971e361cb1d49dc2b26f8f5c3
+Author: ohadshachor123 <ohadshachor123@gmail.com>
+Date:   Sun Jun 10 15:58:59 2018 +0300
+
+    Finished all the work. Finally. Preparing for submission.
+
+commit 4940fa67505ca3aec8623355f82646607447fcc6
+Author: ohadshachor123 <ohadshachor123@gmail.com>
+Date:   Sun Jun 10 15:49:48 2018 +0300
+
+    Delete works fine now
+
+commit e1d090d68b5847e5643ff0a435a53c716fb13e1d
+Author: ohadshachor123 <ohadshachor123@gmail.com>
+Date:   Sun Jun 10 15:22:43 2018 +0300
+
+    view page is implemented completely
+
+commit b9da291e2289a4708d974eb98bda979987cf4168
+Author: ohadshachor123 <ohadshachor123@gmail.com>
+Date:   Sun Jun 10 14:54:10 2018 +0300
+
+    photos buttons now redirect you to a different page
+
+commit 2ef0593a2030aaea537e812f10bd5959d3f1a3cd
+Author: ohadshachor123 <ohadshachor123@gmail.com>
+Date:   Sun Jun 10 14:06:52 2018 +0300
+
+    Fully functional config handlers and filtering in the log tab
+
+commit 911f7a0fbc74b988595a35fdac8e58d90eeb66e6
+Author: ohadshachor123 <ohadshachor123@gmail.com>
+Date:   Sun Jun 10 11:27:47 2018 +0300
+
+    handlers now redirect you to a new page with buttons
+
+commit b6414680c53a2eb407c9d0bc92778ecce3a07181
+Author: ohadshachor123 <ohadshachor123@gmail.com>
+Date:   Sat Jun 9 20:07:05 2018 +0300
+
+    the students chart is now read from a file. TODO: make all the buttons functional.
+
+commit 6aa2ff2b80e9f08eecb7e20eff9e6d6cff17da06
+Author: ohadshachor123 <ohadshachor123@gmail.com>
+Date:   Sat Jun 9 19:45:49 2018 +0300
+
+    images model now takes the data from the service.
+
+commit 95349b99abd47965fabd83926709dd6e8b258c89
+Author: ohadshachor123 <ohadshachor123@gmail.com>
+Date:   Sat Jun 9 19:13:17 2018 +0300
+
+    bounded the data to the real data from the server. TODO: images
+
+commit 738bfc911d0cda1bcf6d93d83c8d47b8e9ea0245
+Author: ohadshachor123 <ohadshachor123@gmail.com>
+Date:   Sat Jun 9 18:27:55 2018 +0300
+
+    added communication with the image service, which loads the data from the service.
+
+commit efd5fac3ee74eb028ab8c1fa018609d5483bde42
+Author: ohadshachor123 <ohadshachor123@gmail.com>
+Date:   Sat Jun 9 15:21:54 2018 +0300
+
+    Finished implmenting the logs tab, todo: nice designing
+
+commit 74bb210fc5741a51e27f004b243a1ac50bb0081d
+Author: ohadshachor123 <ohadshachor123@gmail.com>
+Date:   Sat Jun 9 14:31:35 2018 +0300
+
+    designed the photos tab, binded the data to dummy data
+
+commit c9feda52f1eb49fdc20666d136397caa4df5b92e
+Author: ohadshachor123 <ohadshachor123@gmail.com>
+Date:   Sat Jun 9 14:01:04 2018 +0300
+
+    Implemented the config view, binded to dummy data
+
+commit 0e848d8d1363642bf43362c8ba6bbaaacb47a665
+Author: ohadshachor123 <ohadshachor123@gmail.com>
+Date:   Sat Jun 9 13:25:11 2018 +0300
+
+    Created each tab and designed the main page
+
+commit 8f934758bb5d5f682a2b3b72c211016c451d87a1
+Author: ohadshachor123 <ohadshachor123@gmail.com>
+Date:   Wed May 23 19:32:21 2018 +0300
+
+    Ready for submission
+
+commit ddae4b8a6b8910faa723813aaa8286d1c734ba31
+Author: ohadshachor123 <ohadshachor123@gmail.com>
+Date:   Wed May 23 19:09:27 2018 +0300
+
+    Everything workssss
+
+commit c7e66b9748b623454be61a9568ebd9910cc40374
+Author: ohadshachor123 <ohadshachor123@gmail.com>
+Date:   Wed May 23 16:51:41 2018 +0300
+
+    implemented the close handler command in the server. changed it in a way that the client logic onlnie raises an event when a packet is received, and not handles it by itself.
+
+commit 8af021a90fdbc4e345d8a7c49c1748e010406975
+Author: ohadshachor123 <ohadshachor123@gmail.com>
+Date:   Wed May 23 16:19:29 2018 +0300
+
+    implemented the server commands. TODO: fix the remove handler command
+
+commit 6368f028cb73d6726571789b4c2b890171c6d34c
+Author: ohadshachor123 <ohadshachor123@gmail.com>
+Date:   Wed May 23 12:58:42 2018 +0300
+
+    implemented the server connection. need to implement the handling of each command.
+
+commit c552a1df4bddc25678a33ad28bbf06d99824211f
+Author: ohadshachor123 <ohadshachor123@gmail.com>
+Date:   Fri May 18 20:47:13 2018 +0300
+
+    Finished coding the client side. debugged with a dummy-server and python, client is working.
+
+commit 77dbae9bbd591075d71b9e1e9394cc4de650b771
+Author: ohadshachor123 <ohadshachor123@gmail.com>
+Date:   Fri May 18 13:31:33 2018 +0300
+
+    Coded the client side of the communication, depending on a client interface. currently missing: the interace's implementation.
+
+commit 5a37d8be2d5cd6570f65030e31fd6759407d8671
+Author: ohadshachor123 <ohadshachor123@gmail.com>
+Date:   Wed May 16 15:04:01 2018 +0300
+
+    Coded VM and model for Log screen, binded the data. TODO: Communication services with the server.
+
+commit c44eddf7a62ae8769aea4c4a58b32ab7fffede41
+Author: ohadshachor123 <ohadshachor123@gmail.com>
+Date:   Wed May 16 11:14:37 2018 +0300
+
+    Finished the logs XAML, starting model and view model
+
+commit c53050be0945f806902e1d01deb9cd6d905aabf7
+Author: ohadshachor123 <ohadshachor123@gmail.com>
+Date:   Tue May 15 15:53:54 2018 +0300
+
+    Coded ViewModel and Model for Settings, Binded the code to the xaml
+
+commit 544e9727ec92c46a0b2b060a0bb40214e3593bbf
+Author: ohadshachor123 <ohadshachor123@gmail.com>
+Date:   Tue May 15 12:56:22 2018 +0300
+
+    Created XAML files for both the main page and the settings View
+
+commit a379cd47330ed196fed9e781627827829389f7c9
+Author: ohadshachor123 <ohadshachor123@gmail.com>
+Date:   Fri Apr 13 18:12:55 2018 +0300
+
+    Fixed all the bugs! Service working.
+
+commit 20b4396d9990b2996a51231d338c62456a4fdf6f
+Author: ohadshachor123 <ohadshachor123@gmail.com>
+Date:   Wed Apr 11 17:55:04 2018 +0300
+
+    caught exceptions when trying to get the date
+
+commit 760628c4d3e69c47d4b9d3b8a0487aac189a6dd8
+Author: ohadshachor123 <ohadshachor123@gmail.com>
+Date:   Wed Apr 11 08:16:38 2018 +0300
+
+    Recreated project and rewritten the code, service is running
+
+commit 20722e0667de9c527da20bfda96da7adae13f2c4
+Author: ohadshachor123 <ohadshachor123@gmail.com>
+Date:   Mon Apr 9 15:20:49 2018 +0300
+
+    implemented the controller
+
+commit a0e9f8d1e34b5f63a8c29f5106ae14d92bb91027
+Author: ohadshachor123 <ohadshachor123@gmail.com>
+Date:   Mon Apr 9 12:01:52 2018 +0300
+
+    moved to the template files, and fixed logging services
+
+commit 97611f12dbbfe21814823e45ade3d5d3d6286bec
+Author: ohadshachor123 <ohadshachor123@gmail.com>
+Date:   Wed Mar 28 16:00:10 2018 +0300
+
+    added server, handlers, loggers
+
+commit e7825a580a1db6110863181519bc610298783c6b
+Author: ohadshachor123 <ohadshachor123@gmail.com>
+Date:   Wed Mar 28 12:08:48 2018 +0300
+
+    Created Image Service

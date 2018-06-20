@@ -1,0 +1,25 @@
+﻿
+@{
+    ViewBag.Title = "HandlerPressed";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Please confirm deletion for the handler:</h2>
+<br />
+<h1>@ViewBag.Handler</h1>
+
+<button id="delete" class="btn-danger">Ok</button>
+<br />
+<button id="cancel" class="btn-info">Cancel</button>
+
+<script>
+    $("#cancel").click(function () {
+        window.location.href = "ConfigView";
+    })
+    $("#delete").click(function () {
+        $("button").prop('disabled', true);
+        $.post("@Url.Action("DeleteHandler", "Config", new { handler = ViewBag.Handler})", function () {
+            window.location.href = "ConfigView";
+        });
+    })
+</script>

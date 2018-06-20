@@ -1,0 +1,59 @@
+﻿@model IEnumerable<WebApplication2.Models.Log>
+
+@{
+    ViewBag.Title = "LogsView";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="text-center">
+    <br />
+    <h1 class="text-primary" style="font-family:'Segoe UI'; font-weight:bold;">Logs</h1>
+    <br />
+    <div style="padding-left:20px">
+        <textarea id="filter" style="height:28px; width:300px"></textarea>
+        <button id="filterButton" class="btn-default">Filter</button>
+    </div>
+</div>
+<br />
+
+<table>
+    <tr class="AlwaysShow">
+        <th>Log Type</th>
+        <th>Content</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr class="@item.Type">
+            <td>@item.Type</td>
+            <td>@item.Content</td>
+        </tr>
+    }
+</table>
+
+<script>
+    $("th").css("padding-left", "25px")
+    $("td").css("padding-left", "25px")
+
+    function applyFilter() {
+        var myFilter = $("#filter").val().toUpperCase()
+        if (myFilter != "") {
+            myFilter = "." + myFilter;
+            $("tr").hide(); // Hiding all rows
+            $(".AlwaysShow").show(); // Showing the rows that are labled for always showing
+            $(myFilter).show(); // Showing just the filtered labels.
+            $("#filter").val("") // reseting the filter text.
+        } else { // entered ""
+            $("tr").show(); // Show all rows.
+        }
+    }
+    // Enabling filtering also when "return" is pressed in the filter area.
+    $("#filter").keypress(function (e) {
+        if (e.which == 13) { // return button.
+            applyFilter();
+            return false;
+        }
+    });
+
+    $("#filterButton").click(applyFilter)
+</script>
+
