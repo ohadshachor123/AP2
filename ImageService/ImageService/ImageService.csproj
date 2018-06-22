@@ -64,6 +64,7 @@
     <Compile Include="Commands\NewFileCommand.cs" />
     <Compile Include="Communication\ClientLogic.cs" />
     <Compile Include="Communication\IClientLogic.cs" />
+    <Compile Include="Communication\ImagesLogic.cs" />
     <Compile Include="Communication\MyPacket.cs" />
     <Compile Include="FilesModal\ImageModal.cs" />
     <Compile Include="Handlers\DirectoryCloseArgs.cs" />

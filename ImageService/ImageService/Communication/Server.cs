@@ -18,25 +18,30 @@ namespace ImageService
     {
         private const string IP = "127.0.0.1";
         private const int PORT = 44444;
-        private IlogService logger;
+        private const int PORT_IMAGES = 52486;
+        public static IlogService logger;
         private IController controller;
         private IClientLogic clientsLogic;
-
+        private IClientLogic imagesLogic;
         private TcpListener clientsListener;
+        private TcpListener imagesListener;
         private List<TcpClient> clients;
         // ReceiveCommand is the event that is raised whenever we want to inform the handlers of a command
         public event EventHandler<Commands.CommandReceivedArgs> ReceiveCommand;
         // Close all- is the event that is raised whenever we want to close all the handlers..
         public event EventHandler<EventArgs> CloseAll;
-        public Server(IlogService logger, IController controller)
+        public Server(IlogService myLogger, IController controller)
         {
-            this.logger = logger;
-            this.logger.MessageRecieved += SendLogToGUI;
+            logger = myLogger;
+            logger.MessageRecieved += SendLogToGUI;
             this.controller = controller;
 
             this.clientsLogic = new ClientLogic();
             this.clientsLogic.ClientExited += this.OnClientExit;
             this.clientsLogic.NewPacketReceived += this.HandlePacket;
+
+            this.imagesLogic = new ImagesLogic();
+            this.imagesLogic.NewPacketReceived += this.HandlePacket;
             ListenToClients();
         }
 
@@ -59,6 +64,27 @@ namespace ImageService
                             this.clients.Add(client);
                             // Handle the client on a different thread.
                             this.clientsLogic.HandleClient(client);
+                        }
+                        catch (Exception e)
+                        {
+                            logger.Log("Error accepting a client: " + e.Message, MessageType.WARNING);
+                        }
+                    }
+                }).Start();
+
+                IPEndPoint imagesConnection = new IPEndPoint(IPAddress.Parse(IP), PORT_IMAGES);
+                this.imagesListener = new TcpListener(imagesConnection);
+                this.imagesListener.Start();
+                new Task(() => {
+                    while (true)
+                    {
+                        try
+                        {
+                            // Accepting clients
+                            TcpClient client = this.imagesListener.AcceptTcpClient();
+                            logger.Log("Accepted an image client");
+                            // Handle the client on a different thread.
+                            this.imagesLogic.HandleClient(client);
                         }
                         catch (Exception e)
                         {

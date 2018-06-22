@@ -58,11 +58,16 @@ namespace ImageService.FilesModal
                 string name = Path.GetFileNameWithoutExtension(pathFrom);
                 string extension = Path.GetExtension(pathFrom);
                 Image thumbnail = Tools.CreateThumbnailFromPath(pathFrom, thumbnailSize);
-                thumbnail.Save(outputFolder + "\\" + "thumbnails" + "\\" + year + "\\" + month + "\\" + name + extension);
+                string thumbPath = outputFolder + "\\" + "thumbnails" + "\\" + year + "\\" + month + "\\" + name + extension;
+                if (File.Exists(thumbPath))
+                    File.Delete(thumbPath);
+                thumbnail.Save(thumbPath);
                 thumbnail.Dispose();
 
                 // Moving the file.
                 string pathTo = outputFolder + "\\" + year + "\\" + month + "\\" + name + extension;
+                if (File.Exists(pathTo))
+                    File.Delete(pathTo);
                 File.Move(pathFrom, pathTo);
                 result = true;
                 return pathTo;

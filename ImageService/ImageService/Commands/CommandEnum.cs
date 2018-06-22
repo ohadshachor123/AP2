@@ -13,6 +13,7 @@ namespace ImageService.Commands
         AllLogs,
         CloseHandler,
         ReceiveNewLog,
-        CloseCommand
+        CloseCommand,
+        newImage
     }
 }

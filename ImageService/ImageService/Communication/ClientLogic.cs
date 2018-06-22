@@ -34,7 +34,13 @@ namespace ImageService.Communication
                         // Read a new packet
                         string input = reader.ReadString();
                         MyPacket packet = JsonConvert.DeserializeObject<MyPacket>(input);
-                        if (packet.Type != CommandEnum.CloseCommand)
+                        if (packet.Type == CommandEnum.CloseCommand)
+                        {
+                            // if the command is remove client command, inform the server of the exiting.
+                            ClientExited?.Invoke(this, client);
+                            isConnected = false;
+                        }
+                        else
                         {
                             // Received a command packet, calculate the response(with the event invoke) and send it.
                             string result = NewPacketReceived?.Invoke(packet);
@@ -42,12 +48,7 @@ namespace ImageService.Communication
                             packet.Args = new string[1];
                             packet.Args[0] = result;
                             writer.Write(JsonConvert.SerializeObject(packet));
-                        }
-                        else
-                        {
-                            // if the command is remove client command, inform the server of the exiting.
-                            ClientExited?.Invoke(this, client);
-                            isConnected = false;
+
                         }
                     }
                 } catch (Exception){

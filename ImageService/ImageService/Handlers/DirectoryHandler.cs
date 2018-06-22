@@ -9,7 +9,7 @@ namespace ImageService.Handlers
 {
     public class DirectoryHandler : IHandler
     {
-        public static string[] filters = { ".png", ".jpg", ".bmp", ".gif" };
+        public static string[] filters = { ".png", ".jpg", ".bmp", ".gif", ".PNG"};
 
         public event EventHandler<String> selfCloser;
         private Commands.IController controller;       
@@ -42,7 +42,7 @@ namespace ImageService.Handlers
             string sourcePath = args.FullPath;
             string extention = Path.GetExtension(sourcePath);
             // We are only listening to specific extensions.
-            if(filters.Contains(extention))
+            if(filters.Contains(extention.ToLower()))
             {
                 logging.Log("New file identified: " + sourcePath);
                 DateTime date = Tools.GetDateTakenFromImage(sourcePath);
