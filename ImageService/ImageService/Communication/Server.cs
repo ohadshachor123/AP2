@@ -40,6 +40,7 @@ namespace ImageService
             this.clientsLogic.ClientExited += this.OnClientExit;
             this.clientsLogic.NewPacketReceived += this.HandlePacket;
 
+            // clientHandler that receives files as bytes.
             this.imagesLogic = new ImagesLogic();
             this.imagesLogic.NewPacketReceived += this.HandlePacket;
             ListenToClients();
@@ -71,7 +72,8 @@ namespace ImageService
                         }
                     }
                 }).Start();
-
+                
+                // Listening on a different port to new images
                 IPEndPoint imagesConnection = new IPEndPoint(IPAddress.Parse(IP), PORT_IMAGES);
                 this.imagesListener = new TcpListener(imagesConnection);
                 this.imagesListener.Start();

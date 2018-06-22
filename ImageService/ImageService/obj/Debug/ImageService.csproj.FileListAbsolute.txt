@@ -10,3 +10,4 @@ C:\Users\Ohad\Desktop\Advanced2\ImageService\ImageService\obj\Debug\ImageService
 C:\Users\Ohad\Desktop\Advanced2\ImageService\ImageService\bin\Debug\Newtonsoft.Json.dll
 C:\Users\Ohad\Desktop\Advanced2\ImageService\ImageService\bin\Debug\Newtonsoft.Json.xml
 C:\Users\Ohad\Desktop\Advanced2\ImageService\ImageService\obj\Debug\ImageService.csproj.CopyComplete
+C:\Users\Ohad\Desktop\Advanced2\ImageService\ImageService\obj\Debug\ImageService.csprojResolveAssemblyReference.cache
