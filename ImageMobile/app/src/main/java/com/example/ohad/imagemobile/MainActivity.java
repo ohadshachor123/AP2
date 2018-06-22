@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.content.Intent;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -13,7 +14,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     // Linked to the 'Start' button, start the android service.
-    public void startService(View view){
+    public void startService(View view) {
         Intent intent = new Intent(this, AndroidService.class);
         startService(intent);
     }
